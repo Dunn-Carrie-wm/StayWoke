@@ -1,5 +1,5 @@
 <?php
-
+require('connect.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -7,6 +7,8 @@
     <title>Stay Woke</title>
 </head>
 <body>
+<div class="content">
 
+</div>
 </body>
 </html>
