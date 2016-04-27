@@ -1,5 +1,5 @@
 <?php
-
+require('connect.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,8 +8,17 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/engine/Engine.js"></script>
+<script type="text/javascript" src="js/engine/Vector.js"></script>
+<script type="text/javascript" src="js/engine/Entity.js"></script>
 </head>
-<body>
+<body onload="main()">
+<div class="content">
+    <canvas id="canvas"></canvas>
+</div>
+<script src="js/Game.js"></script>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
