@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Stay Woke</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
 <div class="content">
