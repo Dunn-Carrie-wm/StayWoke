@@ -1,5 +1,5 @@
 <?php
-
+require('connect.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,14 @@
     <title>Stay Woke</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-<div class="content">Make all divs have the class set to content</div>
+    <script type="text/javascript" src="js/engine/Engine.js"></script>
+    <script type="text/javascript" src="js/engine/Vector.js"></script>
+    <script type="text/javascript" src="js/engine/Entity.js"></script>
+</head>
+<body onload="main()">
+    <div class="content">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="js/Game.js"></script>
 </body>
 </html>
