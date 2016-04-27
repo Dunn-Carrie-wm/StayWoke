@@ -15,10 +15,6 @@ require('connect.php');
 <script type="text/javascript" src="js/engine/Entity.js"></script>
 </head>
 <body onload="main()">
-<div class="content">
-    <canvas id="canvas"></canvas>
-</div>
-<script src="js/Game.js"></script>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -42,6 +38,10 @@ require('connect.php');
         </div>
     </div>
 </nav>
+<div class="content">
+    <canvas id="canvas"></canvas>
+</div>
+<script src="js/Game.js"></script>
 <footer>
     <p style="background-color: black; color: white; text-align: center">
         &copy; Stay Woke 2016
