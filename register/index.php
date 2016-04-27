@@ -7,7 +7,7 @@ function register($conn) {
     $password = $_POST['password'];
 
     $continue = true;
-    $form = '<form class="" action="" method="post">
+    $form = '<form class="" action="" method="post" style="text-align: center;">
                 <span>Missing Required Fields.</span><br><br>';
     if(!isset($username) || trim($username) == '') {
         $form .= '<input class="required" name="username" maxlength="16" placeholder="Username"/><br>';
@@ -44,7 +44,7 @@ function register($conn) {
             }
         }
         catch (PDOException $e) {
-            echo '<form class="account" action="" method="post">
+            echo '<form class="account" action="" method="post" style="text-align: center">
                     <span>Username or Email Already Registered. Try Again.</span><br>
                     <input name="username" maxlength="16" placeholder="Username"/><br>
                     <input name="email" maxlength="128" placeholder="Email"/><br>
@@ -107,7 +107,7 @@ function generateToken() {
                 <input name="username" maxlength="16" placeholder="Username"/><br>
                 <input name="email" maxlength="40" placeholder="Email"/><br>
                 <input type="password" name="password" maxlength="40" placeholder="Password"/><br>
-                <input class="submit" type="submit" name="submit" value="Register"/><br>
+                <input class="submit" type="submit" name="submit" value="Register" style="color: black;"/><br>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
                 </form>';
