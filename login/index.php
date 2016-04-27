@@ -25,7 +25,9 @@ require('../connect.php');
             <ul class="nav navbar-nav">
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="../register">Register</a></li>
-                <li><a href="#">Store</a></li>
+                <li><a href="../highscores">Highscores</a></li>
+                <li><a href="../Shop">Store</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="index.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

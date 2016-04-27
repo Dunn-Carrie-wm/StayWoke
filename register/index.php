@@ -88,7 +88,8 @@ function generateToken() {
             <ul class="nav navbar-nav">
                 <li><a href="../index.php">Home</a></li>
                 <li class="active"><a href="#">Register</a></li>
-                <li><a href="#">Store</a></li>
+                <li><a href="../highscores">Highscores</a></li>
+                <li><a href="../Shop">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="../login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
