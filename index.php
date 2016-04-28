@@ -23,13 +23,13 @@ require('connect.php');
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Stay Woke</a>
+            <img src="res/stay%20woke%20logo.png" height="80px" width="80px"></img>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">Home</a></li>
                 <li><a href="register/">Register</a></li>
-                <li><a href="highscores">High scores</a></li>
+                <li><a href="highscores/">High scores</a></li>
                 <li><a href="shop/">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
