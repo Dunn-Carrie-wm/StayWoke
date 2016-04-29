@@ -10,11 +10,9 @@ require('../connect.php');
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <script type="text/javascript" src="js/engine/Engine.js"></script>
-    <script type="text/javascript" src="js/engine/Vector.js"></script>
-    <script type="text/javascript" src="js/engine/Entity.js"></script>
 </head>
 <body onload="main()">
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -27,10 +25,10 @@ require('../connect.php');
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="">Home</a></li>
+                <li><a href="../index.php">Home</a></li>
                 <li><a href="../register">Register</a></li>
-                <li><a href="../highscores">High scores</a></li>
-                <li class="active"><a href="../shop">Store</a></li>
+                <li class="active"><a href="../highscores">High scores</a></li>
+                <li><a href="../shop">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="../login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -42,11 +40,10 @@ require('../connect.php');
 <div class="content">
     <canvas id="canvas"></canvas>
 </div>
-<script src="js/Game.js"></script>
 <footer>
     <p style="background-color: black; color: white; text-align: center">
         &copy; Stay Woke 2016
     </p>
 </footer>
-</body>
 </html>
+</body>
