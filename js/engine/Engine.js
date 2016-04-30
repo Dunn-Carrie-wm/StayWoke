@@ -161,7 +161,7 @@ function Engine(canvasId, canvasWidth, canvasHeight) {
 
     this.resize = function(width, height) {
         var ratio = this.canvas.width / this.canvas.height;
-        height = height || window.innerHeight - 160;
+        height = height || window.innerHeight - 128;
         width = width || height * ratio;
         this.canvas.style.width =  width + "px";
         this.canvas.style.height = height + "px";
