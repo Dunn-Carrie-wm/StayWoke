@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+require('../connect.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +10,9 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <script type="text/javascript" src="js/engine/Engine.js"></script>
-    <script type="text/javascript" src="js/engine/Vector.js"></script>
-    <script type="text/javascript" src="js/engine/Entity.js"></script>
 </head>
-<body>
+<body onload="main()">
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -21,14 +21,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img src="../res/stay%20woke%20logo.png" height="80px" width="80px"/>
+            <img src="../res/stay%20woke%20logo.png" height="80px" width="80px"></img>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="../index.php">Home</a></li>
-                <li ><a href="../register">Register</a></li>
-                <li ><a href="../highscores">High scores</a></li>
-                <li class="active"><a href="../Shop">Store</a></li>
+                <li><a href="../register">Register</a></li>
+                <li><a href="../highscores">High scores</a></li>
+                <li class="active"><a href="../shop">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="../login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -37,4 +37,13 @@
         </div>
     </div>
 </nav>
+<div class="content">
+    <canvas id="canvas"></canvas>
+</div>
+<footer>
+    <p style="background-color: black; color: white; text-align: center">
+        &copy; Stay Woke 2016
+    </p>
+</footer>
+</html>
 </body>
