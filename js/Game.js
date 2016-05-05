@@ -27,7 +27,7 @@ function init() {
     var tilesheet = new SpriteSheet("res/sprite_background.png");
     var tileblock = new SpriteSheet("res/sprite_block.png");
 
-    tiles[0] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
+    tiles[2] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
     tiles[1] = new Tile(new Sprite(tileblock, 0, 0, 32, 32));
 
     background = new Sprite(new SpriteSheet("res/gradient.png"), 0, 0, 800, 480);
@@ -92,7 +92,7 @@ function Tile(sprite, solid) {
 
 function World() {
     this.map = [
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -109,6 +109,12 @@ function World() {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     ];
+
+    for (var i=0;i<this.map.length;i++){
+        for (var j=0;j<this.map[0].length;j++) {
+        if (this.map[i][j] == 0 && Math.random() < .12)this.map[i][j] = 2;
+            }
+        }
 
     this.getWidth = function() {
         return this.map[0].length;
@@ -129,9 +135,14 @@ function World() {
                 var tileX = j * tileWidth + offset.x;
                 var tileY = i * tileHeight + offset.y;
                 var tile = tiles[id];
+
+
                 if(tile == undefined) console.log(id);
                 if(id == 0) {
                     //if(Math.random() < .9) tile.render(context, tileX, tileY);
+                }
+                    else if (id == 2) {
+                    if(Math.random() < .8) tile.render(context, tileX, tileY);
                 }
                 else {
                     tile.render(context, tileX, tileY);
