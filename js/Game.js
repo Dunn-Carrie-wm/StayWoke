@@ -130,7 +130,12 @@ function World() {
                 var tileY = i * tileHeight + offset.y;
                 var tile = tiles[id];
                 if(tile == undefined) console.log(id);
-                tile.render(context, tileX, tileY);
+                if(id == 0) {
+                    //if(Math.random() < .9) tile.render(context, tileX, tileY);
+                }
+                else {
+                    tile.render(context, tileX, tileY);
+                }
             }
         }
     };
