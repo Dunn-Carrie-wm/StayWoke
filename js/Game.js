@@ -18,11 +18,11 @@ var world;
 var tiles = [];
 
 function init() {
-    var playersheet = new SpriteSheet("res/sprite_energy.png");
+    var playersheet = new SpriteSheet("res/sprite_player.png");
     player = new Player(new Vector(0, 0), 32, 32, playersheet);
     world = new World();
 
-    var tilesheet = new SpriteSheet("res/sprite_coffee.png");
+    var tilesheet = new SpriteSheet("res/sprite_background.png");
     tiles[0] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
 }
 
@@ -61,10 +61,10 @@ function Player(position, width, height, spritesheet) {
     this.sprites[15] = new Sprite(spritesheet, 16 * 3, 24 * 3, 16, 24);*/
 
     this.update = function() {
-        if(engine.key("W")) this.position.y -= 1;
-        if(engine.key("S")) this.position.y += 1;
-        if(engine.key("A")) this.position.x -= 1;
-        if(engine.key("D")) this.position.x += 1;
+        if(engine.key("W")) this.position.y -= 2;
+        if(engine.key("S")) this.position.y += 2;
+        if(engine.key("A")) this.position.x -= 2;
+        if(engine.key("D")) this.position.x += 2;
     };
 
     this.render = function(context) {
