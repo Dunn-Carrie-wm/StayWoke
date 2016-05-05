@@ -17,6 +17,8 @@ var player;
 var world;
 var tiles = [];
 
+var background;
+
 function init() {
     var playersheet = new SpriteSheet("res/sprite_player.png");
     player = new Player(new Vector(0, 0), 32, 32, playersheet);
@@ -27,6 +29,8 @@ function init() {
 
     tiles[0] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
     tiles[1] = new Tile(new Sprite(tileblock, 0, 0, 32, 32));
+
+    background = new Sprite(new SpriteSheet("res/gradient.png"), 0, 0, 800, 480);
 }
 
 function update() {
@@ -35,6 +39,7 @@ function update() {
 
 function render(context) {
     engine.clear();
+    background.render(context, 0, 0);
     world.render(context, player.position.sub(new Vector(12 * 32, 7 * 32)).scale(-1));
     player.render(context);
 }
