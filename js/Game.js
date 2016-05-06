@@ -81,7 +81,7 @@ function Player(position, width, height, spritesheet) {
 
         var x = Math.floor(this.position.x / 32);
         var y = Math.floor(this.position.y / 32);
-        if(x >= 0 && x < world.getWidth() && y >= 0 && y < world.getHeight() && world.map[y + 1][x] < 10) {
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y + 1][x] < 10) {
             this.falling = true;
         }
 
@@ -184,9 +184,7 @@ function World() {
                 var tileX = j * tileWidth + offset.x;
                 var tileY = i * tileHeight + offset.y;
                 var tile = tiles[id];
-
-
-                if(tile == undefined) console.log(id);
+                
                 if(id == 0) {
                     //if(Math.random() < .9) tile.render(context, tileX, tileY);
                 }
