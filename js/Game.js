@@ -221,7 +221,7 @@ function World() {
                 var tileX = j * tileWidth + offset.x;
                 var tileY = i * tileHeight + offset.y;
                 var tile = tiles[id];
-                
+
                 if(id == 0) {
                     //DRAW NOTHING ON CLEAR TILES
                 }
