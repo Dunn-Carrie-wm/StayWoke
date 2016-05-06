@@ -60,17 +60,10 @@ function Player(position, width, height, spritesheet) {
     this.sprites[0] = new Sprite(spritesheet, 0, 0, 32, 32);
     this.sprites[1] = new Sprite(spritesheet, 32, 0, 32, 32);
     this.sprites[2] = new Sprite(spritesheet, 64, 0, 32, 32);
-<<<<<<< HEAD
-    /*this.sprites[3] = new Sprite(spritesheet, 16 * 3, 24 * 0, 16, 24);
-    this.sprites[4] = new Sprite(spritesheet, 16 * 0, 24 * 1, 16, 24);
-    this.sprites[5] = new Sprite(spritesheet, 16 * 1, 24 * 1, 16, 24);
-    this.sprites[6] = new Sprite(spritesheet, 16 * 2, 24 * 1, 16, 24);
-=======
     this.sprites[3] = new Sprite(spritesheet, 0, 32, 32, 32);
     this.sprites[4] = new Sprite(spritesheet, 32, 32, 32, 32);
     this.sprites[5] = new Sprite(spritesheet, 64, 32, 32, 32);
     /*this.sprites[6] = new Sprite(spritesheet, 16 * 2, 24 * 1, 16, 24);
->>>>>>> dbd37c22e40704652fecb9accb21a0a774104b40
     this.sprites[7] = new Sprite(spritesheet, 16 * 3, 24 * 1, 16, 24);
     this.sprites[8] = new Sprite(spritesheet, 16 * 0, 24 * 2, 16, 24);
     this.sprites[9] = new Sprite(spritesheet, 16 * 1, 24 * 2, 16, 24);
@@ -83,7 +76,7 @@ function Player(position, width, height, spritesheet) {
 
     this.moving = false;
     this.falling = false;
-    
+
     this.direction = 0;
 
     this.animation = {
