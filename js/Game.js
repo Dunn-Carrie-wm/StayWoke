@@ -87,17 +87,16 @@ function Player(position, width, height, spritesheet) {
 
     this.update = function() {
 
-        var x = Math.floor(this.position.x / 32);
-        var y = Math.floor(this.position.y / 32);
-        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y + 1][x] < 10) {
-            this.falling = true;
-        }
-
         if(this.falling) {
             this.velocity.y += .5;
         }
         else if(engine.key("SPACE")) {
             this.velocity.y = -10;
+        }
+        var x = Math.floor((this.position.x + 15) / 32);
+        var y = Math.floor((this.position.y) / 32);
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y + 1][x] < 10) {
+            this.falling = true;
         }
 
         var initial = new Vector(this.velocity.x, this.velocity.y);
@@ -133,9 +132,12 @@ function Player(position, width, height, spritesheet) {
                     var mtv = playerBox.getTranslationVector(tileBox);
                     this.position = this.position.add(mtv);
 
-                    if(this.velocity.magnitude() > 0) {
-                        this.falling = false;
-                        this.velocity = new Vector(0, 0);
+                    if(Math.abs(mtv.y) > 0) {
+                        this.velocity.y = 0;
+
+                        if(mtv.y < 0) {
+                            this.falling = false;
+                        }
                     }
                 }
             }
