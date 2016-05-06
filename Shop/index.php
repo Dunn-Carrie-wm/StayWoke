@@ -21,7 +21,7 @@ require('../connect.php');
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img src="../res/stay%20woke%20logo.png" height="80px" width="80px"></img>
+            <img src="../res/stay%20woke%20logo.png" height="80px" width="80px">
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -38,7 +38,114 @@ require('../connect.php');
     </div>
 </nav>
 <div class="content">
-    <canvas id="canvas"></canvas>
+    <form method="post" style="color: black">
+        <center>
+            <table border="1px">
+                <tr>
+                    <td width="150px"><center>Extra Lives:$0.10</center></td><td>
+                        <p>Play the game 1 more time before needing to recharge</p><p><?php
+                            //checks to see if $_POST['qtyLives'] has been set yet, if not sets to null
+                            //This is to avoid the error in the next line when the computer doesn't know what $_POST['qtyLives'] is
+                            if(!isset($_POST['qtyLives'])){$_POST['qtyLives'] = null;}
+                            //sets $qtyLives to $_POST['qtyLives'], $_POST varriables can;t be used as values in inputs
+                            $qtyLives = $_POST['qtyLives'];
+                            //if the user has not added anything to the cart yet
+                            if($qtyLives == null) {
+                                //make the button to add to cart
+                                echo "<input type='number' name='qtyLives' min='0' value='$qtyLives'><button>Add to Cart</button>";
+                            }else{
+                                //if the user HAS added to cart, allow the user to update and show the user how much it costs
+                                echo "<input type='number' name='qtyLives' min='0' value='$qtyLives'><button>Update Cart</button>
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyLives*0.1, 2)."</a>";
+                            }
+                            ?></p></td><td width="150px"><center>Skin Tickets:$0.50</center></td><td>
+                        <p>Use them to buy skins in-game to change your character's skin</p><p><?php
+                            //Copy/paste of Lives, changed to Skins
+                            if(!isset($_POST['qtySkins'])){$_POST['qtySkins'] = null;}
+                            $qtySkins = $_POST['qtySkins'];
+                            if($qtySkins == null) {
+                                echo "<input type='number' name='qtySkins' min='0' value='$qtySkins'><button>Add to Cart</button>";
+                            }else{
+                                echo "<input type='number' name='qtySkins' min='0' value='$qtySkins'><button>Update Cart</button>
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtySkins*0.5, 2)."</a>";
+                            }
+                            ?></p></td>
+                </tr>
+                <tr>
+                    <td width="150px"><center>Mugs:$1.80</center></td><td>
+                        <p>Drink your beverage in a mug with the StayWoke logo</p><p><?php
+                            //Copy/paste of Lives, changed to Mugs
+                            if(!isset($_POST['qtyMugs'])){$_POST['qtyMugs'] = null;}
+                            $qtyMugs = $_POST['qtyMugs'];
+                            if($qtyMugs == null) {
+                                echo "<input type='number' name='qtyMugs' min='0' value='$qtyMugs'><button>Add to Cart</button>";
+                            }else{
+                                echo "<input type='number' name='qtyMugs' min='0' value='$qtyMugs'><button>Update Cart</button>
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyMugs*1.8, 2)."</a>";
+                            }
+                            ?></p></td><td width="150px"><center>T-Shirt:$20.00</center></td><td>
+                        <p>Get a T-Shirt with the StayWoke Logo on it</p><p><?php
+                            //Copy/paste of Lives, changed to TShirts
+                            if(!isset($_POST['qtyTShirts'])){$_POST['qtyTShirts'] = null;}
+                            $qtyTShirts = $_POST['qtyTShirts'];
+                            if($qtyTShirts == null) {
+                                echo "<input type='number' name='qtyTShirts' min='0' value='$qtyTShirts'><button>Add to Cart</button>";
+                            }else{
+                                echo "<input type='number' name='qtyTShirts' min='0' value='$qtyTShirts'><button>Update Cart</button>
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyTShirts*20, 2)."</a>";
+                            }
+                            ?></p></td>
+                </tr>
+                <tr><td colspan="4"><div id="credit card">
+                        <b>Credit Card:</b>
+                        <p>Cardholder Name <input type="text">Card Number (no dashes): <input type="number" min="0000000000000000" max="9999999999999999"></p>
+                        <p>City: <input type="text">State/Province <input type="text">Postal/ZIP code: <input type="text">Country <input type="text"></p>
+                        <p>Billing address 1: <input type="text">
+                            Billing address 2: <input type="text"></p>
+                        <p>Expiration Date: <input type="text" placeholder="MM/YYYY"></p>
+                    </div></td></tr>
+            </table>
+        </center>
+
+
+        <?php
+        echo "<button name='submit'>Submit</button>";
+        if(isset($_POST['submit'])){
+
+            if($qtyLives > 0 && $qtyLives != null){
+                $sql = 'INSERT INTO purchases (id, user_id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    1, $qtyLives, number_format($_POST['qtyLives'] * 0.1, 2)
+                ));
+            }
+            if($qtySkins > 0 && $qtySkins != null){
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    2, $qtySkins, number_format($_POST['qtySkins'] * 0.1, 2)
+                ));
+            }
+            if($qtyMugs > 0 && $qtyMugs != null){
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    3, $qtyMugs, number_format($_POST['qtyMugs'] * 0.1, 2)
+                ));
+            }
+            if($qtyTShirts > 0 && $qtyTShirts != null){
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    4, $qtyTShirts, number_format($_POST['qtyTShirts'] * 0.1, 2)
+                ));
+            }
+
+            $url = 'http://localhost:8090/StayWoke/shop/submit_button.php';
+            header('location: '.$url);
+        }
+        ?>
+    </form>
 </div>
 <footer>
     <p style="background-color: black; color: white; text-align: center">
