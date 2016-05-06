@@ -60,10 +60,10 @@ function Player(position, width, height, spritesheet) {
     this.sprites[0] = new Sprite(spritesheet, 0, 0, 32, 32);
     this.sprites[1] = new Sprite(spritesheet, 32, 0, 32, 32);
     this.sprites[2] = new Sprite(spritesheet, 64, 0, 32, 32);
-    /*this.sprites[3] = new Sprite(spritesheet, 16 * 3, 24 * 0, 16, 24);
-    this.sprites[4] = new Sprite(spritesheet, 16 * 0, 24 * 1, 16, 24);
-    this.sprites[5] = new Sprite(spritesheet, 16 * 1, 24 * 1, 16, 24);
-    this.sprites[6] = new Sprite(spritesheet, 16 * 2, 24 * 1, 16, 24);
+    this.sprites[3] = new Sprite(spritesheet, 0, 32, 32, 32);
+    this.sprites[4] = new Sprite(spritesheet, 32, 32, 32, 32);
+    this.sprites[5] = new Sprite(spritesheet, 64, 32, 32, 32);
+    /*this.sprites[6] = new Sprite(spritesheet, 16 * 2, 24 * 1, 16, 24);
     this.sprites[7] = new Sprite(spritesheet, 16 * 3, 24 * 1, 16, 24);
     this.sprites[8] = new Sprite(spritesheet, 16 * 0, 24 * 2, 16, 24);
     this.sprites[9] = new Sprite(spritesheet, 16 * 1, 24 * 2, 16, 24);
@@ -76,6 +76,8 @@ function Player(position, width, height, spritesheet) {
 
     this.moving = false;
     this.falling = false;
+
+    this.direction = 0;
 
     this.animation = {
         index: 0,
@@ -105,10 +107,12 @@ function Player(position, width, height, spritesheet) {
         if(engine.key("A")) {
             this.velocity.x -= 4;
             this.moving = true;
+            this.direction = 1;
         }
         if(engine.key("D")) {
             this.velocity.x += 4;
             this.moving = true;
+            this.direction = 0;
         }
 
         if(!engine.key("A") && !engine.key("D")) {
@@ -157,7 +161,7 @@ function Player(position, width, height, spritesheet) {
     };
 
     this.render = function(context) {
-        this.sprites[this.animation.index].render(context, 12 * 32, 7 * 32, this.width, this.height);
+        this.sprites[this.animation.index + this.direction * 3].render(context, 12 * 32, 7 * 32, this.width, this.height);
     };
 }
 
@@ -191,11 +195,12 @@ function World() {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,10,10,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     ];
 
+    //RANDOMLY GENERATE STAR TILES
     for (var i=0;i<this.map.length;i++){
         for (var j=0;j<this.map[0].length;j++) {
-        if (this.map[i][j] == 0 && Math.random() < .12)this.map[i][j] = 2;
-            }
+            if (this.map[i][j] == 0 && Math.random() < .12)this.map[i][j] = 2;
         }
+    }
 
     this.getWidth = function() {
         return this.map[0].length;
@@ -218,13 +223,16 @@ function World() {
                 var tile = tiles[id];
                 
                 if(id == 0) {
-                    //if(Math.random() < .9) tile.render(context, tileX, tileY);
-                }
-                    else if (id == 2) {
-                    if(Math.random() < .8) tile.render(context, tileX, tileY);
+                    //DRAW NOTHING ON CLEAR TILES
                 }
                 else {
+                    if(id == 2) {
+                        //if(Math.random() < .8) tile.render(context, tileX, tileY);
+                        //MAKES STARS SEMI TRANSPARENT
+                        if(Math.random() < .8) context.globalAlpha = .5;
+                    }
                     tile.render(context, tileX, tileY);
+                    context.globalAlpha = 1;
                 }
             }
         }
