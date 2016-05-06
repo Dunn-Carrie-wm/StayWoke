@@ -20,7 +20,7 @@ var tiles = [];
 var background;
 
 function init() {
-    var playersheet = new SpriteSheet("res/sprite_player.png");
+    var playersheet = new SpriteSheet("res/sprite_player_rightsheet.png");
     player = new Player(new Vector(0, 0), 32, 32, playersheet);
     world = new World();
 
@@ -58,9 +58,9 @@ function Player(position, width, height, spritesheet) {
 
     this.sprites = [];
     this.sprites[0] = new Sprite(spritesheet, 0, 0, 32, 32);
-    /*this.sprites[1] = new Sprite(spritesheet, 16 * 1, 24 * 0, 16, 24);
-    this.sprites[2] = new Sprite(spritesheet, 16 * 2, 24 * 0, 16, 24);
-    this.sprites[3] = new Sprite(spritesheet, 16 * 3, 24 * 0, 16, 24);
+    this.sprites[1] = new Sprite(spritesheet, 32, 0, 32, 32);
+    this.sprites[2] = new Sprite(spritesheet, 64, 0, 32, 32);
+    /*this.sprites[3] = new Sprite(spritesheet, 16 * 3, 24 * 0, 16, 24);
     this.sprites[4] = new Sprite(spritesheet, 16 * 0, 24 * 1, 16, 24);
     this.sprites[5] = new Sprite(spritesheet, 16 * 1, 24 * 1, 16, 24);
     this.sprites[6] = new Sprite(spritesheet, 16 * 2, 24 * 1, 16, 24);
@@ -76,6 +76,12 @@ function Player(position, width, height, spritesheet) {
 
     this.moving = false;
     this.falling = false;
+
+    this.animation = {
+        index: 0,
+        max: 6,
+        frame: 0
+    };
 
     this.update = function() {
 
@@ -94,10 +100,20 @@ function Player(position, width, height, spritesheet) {
 
         var initial = new Vector(this.velocity.x, this.velocity.y);
 
-        if(engine.key("W")) this.velocity.y -= 8;
-        if(engine.key("S")) this.velocity.y += 4;
-        if(engine.key("A")) this.velocity.x -= 4;
-        if(engine.key("D")) this.velocity.x += 4;
+        //if(engine.key("W")) this.velocity.y -= 8;
+        //if(engine.key("S")) this.velocity.y += 4;
+        if(engine.key("A")) {
+            this.velocity.x -= 4;
+            this.moving = true;
+        }
+        if(engine.key("D")) {
+            this.velocity.x += 4;
+            this.moving = true;
+        }
+
+        if(!engine.key("A") && !engine.key("D")) {
+            this.moving = false;
+        }
 
         this.position = this.position.add(this.velocity);
         this.velocity = initial;
@@ -121,11 +137,27 @@ function Player(position, width, height, spritesheet) {
             }
         }
 
+        if(this.moving) {
+            if(this.animation.frame < this.animation.max) {
+                this.animation.frame += 1;
+            } else {
+                this.animation.frame = 0;
+                if(this.animation.index < 2) {
+                    this.animation.index += 1;
+                } else {
+                    this.animation.index = 0;
+                }
+            }
+        } else {
+            this.animation.frame = 0;
+            this.animation.index = 0;
+        }
+
 
     };
 
     this.render = function(context) {
-        this.sprites[0].render(context, 12 * 32, 7 * 32, this.width, this.height);
+        this.sprites[this.animation.index].render(context, 12 * 32, 7 * 32, this.width, this.height);
     };
 }
 
