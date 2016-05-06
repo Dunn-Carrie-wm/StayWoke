@@ -93,10 +93,16 @@ function Player(position, width, height, spritesheet) {
         else if(engine.key("SPACE")) {
             this.velocity.y = -10;
         }
+
         var x = Math.floor((this.position.x + 15) / 32);
         var y = Math.floor((this.position.y) / 32);
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y + 1][x] < 10) {
             this.falling = true;
+        }
+
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 3) {
+            //this.velocity.y = -8;
+            //DEATH CODE HERE
         }
 
         var initial = new Vector(this.velocity.x, this.velocity.y);
