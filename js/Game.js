@@ -50,6 +50,8 @@ function Player(position, width, height, spritesheet) {
     this.width = width;
     this.height = height;
 
+    this.velocity = new Vector(0, 0);
+
     this.sprites = [];
     this.sprites[0] = new Sprite(spritesheet, 0, 0, 32, 32);
     /*this.sprites[1] = new Sprite(spritesheet, 16 * 1, 24 * 0, 16, 24);
@@ -68,25 +70,54 @@ function Player(position, width, height, spritesheet) {
     this.sprites[14] = new Sprite(spritesheet, 16 * 2, 24 * 3, 16, 24);
     this.sprites[15] = new Sprite(spritesheet, 16 * 3, 24 * 3, 16, 24);*/
 
+    this.moving = false;
+    this.falling = false;
+
     this.update = function() {
-        if(engine.key("W")) this.position.y -= 2;
-        if(engine.key("S")) this.position.y += 2;
-        if(engine.key("A")) this.position.x -= 2;
-        if(engine.key("D")) this.position.x += 2;
+
+        var x = Math.floor(this.position.x / 32);
+        var y = Math.floor(this.position.y / 32);
+        if(x >= 0 && x < world.getWidth() && y >= 0 && y < world.getHeight() && world.map[y + 1][x] < 10) {
+            this.falling = true;
+        }
+
+        if(this.falling) {
+            this.velocity.y += .5;
+        }
+        else if(engine.key("SPACE")) {
+            this.velocity.y = -10;
+        }
+
+        var initial = new Vector(this.velocity.x, this.velocity.y);
+
+        if(engine.key("W")) this.velocity.y -= 8;
+        if(engine.key("S")) this.velocity.y += 4;
+        if(engine.key("A")) this.velocity.x -= 4;
+        if(engine.key("D")) this.velocity.x += 4;
+
+        this.position = this.position.add(this.velocity);
+        this.velocity = initial;
 
         //COLLISION CODE
         var playerBox = new AABB(this.position.x, this.position.y, this.width, this.height);
-        var x = Math.floor(this.position.x / 32);
-        var y = Math.floor(this.position.y / 32);
+        x = Math.floor(this.position.x / 32);
+        y = Math.floor(this.position.y / 32);
         for(var i = Math.max(0, x - 2); i < Math.min(world.map[0].length, x + 3); i++) {
             for (var j = Math.max(0, y - 2); j < Math.min(world.map.length, y + 3); j++) {
                 var tileBox = new AABB(i * 32, j * 32, 32, 32);
                 if(world.map[j][i] >= 10 && playerBox.getCollision(tileBox)) {
                     var mtv = playerBox.getTranslationVector(tileBox);
                     this.position = this.position.add(mtv);
+
+                    if(this.velocity.magnitude() > 0) {
+                        this.falling = false;
+                        this.velocity = new Vector(0, 0);
+                    }
                 }
             }
         }
+
+
     };
 
     this.render = function(context) {
@@ -164,7 +195,7 @@ function AABB(x, y, w, h) {
     this.getCollision = function(b) {
         if(this.x >= b.x + b.width || this.y >= b.y + b.height || this.x + this.width <= b.x || this.y + this.height <= b.y) return false;
         return true;
-    }
+    };
 
     this.getTranslationVector = function(b) {
         var mtv = new Vector(0, 0);
@@ -188,12 +219,12 @@ function AABB(x, y, w, h) {
         else mtv.x = 0;
 
         return mtv;
-    }
+    };
 
     this.getMin = function() {
         return new Vector(this.x, this.y);
-    }
+    };
     this.getMax = function() {
         return new Vector(this.x + this.width, this.y + this.height);
-    }
+    };
 }
