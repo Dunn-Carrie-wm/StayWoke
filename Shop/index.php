@@ -21,7 +21,7 @@ require('../connect.php');
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img src="../res/stay%20woke%20logo.png" height="80px" width="80px">
+            <img src="../res/stay_woke_logo.png" height="80px" width="80px">
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
