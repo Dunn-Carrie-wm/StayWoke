@@ -20,11 +20,11 @@ CREATE TABLE `staywokedb`.`purchases` (
 
 CREATE TABLE `staywokedb`.`creditCards` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `Cardholder_name` VARCHAR(16) NOT NULL,
+  `CardholderName` VARCHAR(16) NOT NULL,
   `CardNumber` INT NOT NULL,
   `City` VARCHAR(30) NOT NULL,
-  `State/province` VARCHAR(30) NULL,
-  `Postal/ZIP_code` VARCHAR(8) NULL,
+  `StateProvince` VARCHAR(30) NULL,
+  `PostalZIP_code` VARCHAR(8) NULL,
   `Country` VARCHAR(30) NULL,
   `BillingAddress1` VARCHAR(128) NULL,
   `BillingAddress2` VARCHAR(128) NULL,

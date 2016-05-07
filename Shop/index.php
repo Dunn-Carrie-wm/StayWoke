@@ -98,11 +98,15 @@ require('../connect.php');
                 </tr>
                 <tr><td colspan="4"><div id="credit card">
                         <b>Credit Card:</b>
-                        <p>Cardholder Name <input type="text">Card Number (no dashes): <input type="number" min="0000000000000000" max="9999999999999999"></p>
-                        <p>City: <input type="text">State/Province <input type="text">Postal/ZIP code: <input type="text">Country <input type="text"></p>
-                        <p>Billing address 1: <input type="text">
-                            Billing address 2: <input type="text"></p>
-                        <p>Expiration Date: <input type="text" placeholder="MM/YYYY"></p>
+                        <p>Cardholder Name <input type="text" name="CCname">
+                            Card Number (no dashes): <input type="number" value="0000000000000000" maxlength="16" name="CCnumber"></p>
+                        <p>City: <input type="text" name="CCcity">
+                            State/Province <input type="text" name="CCS/P">
+                            Postal/ZIP code: <input maxlength="9" type="text"  name="CCP/Z">
+                            Country <input name="CCcountry" type="text"></p>
+                        <p>Billing address 1: <input type="text" name="CCBA1">
+                            Billing address 2: <input type="text" name="CCBA2"></p>
+                        <p>Expiration Date: <input type="text" placeholder="MM/YYYY" name="CCED"></p>
                     </div></td></tr>
             </table>
         </center>
@@ -113,31 +117,51 @@ require('../connect.php');
         if(isset($_POST['submit'])){
 
             if($qtyLives > 0 && $qtyLives != null){
-                $sql = 'INSERT INTO purchases (id, user_id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
                     1, $qtyLives, number_format($_POST['qtyLives'] * 0.1, 2)
                 ));
+                $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    $_POST['CCname'], $_POST['CCnumber'], $_POST['CCcity'], $_POST['CCS/P'], $_POST['CCP/Z'], $_POST['CCcountry'], $_POST['CCBA1'], $_POST['CCBA2'], $_POST['CCED']
+                ));
             }
             if($qtySkins > 0 && $qtySkins != null){
-                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
                     2, $qtySkins, number_format($_POST['qtySkins'] * 0.1, 2)
                 ));
+                $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    $_POST['CCname'], $_POST['CCnumber'], $_POST['CCcity'], $_POST['CCS/P'], $_POST['CCP/Z'], $_POST['CCcountry'], $_POST['CCBA1'], $_POST['CCBA2'], $_POST['CCED']
+                ));
             }
             if($qtyMugs > 0 && $qtyMugs != null){
-                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
                     3, $qtyMugs, number_format($_POST['qtyMugs'] * 0.1, 2)
                 ));
+                $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    $_POST['CCname'], $_POST['CCnumber'], $_POST['CCcity'], $_POST['CCS/P'], $_POST['CCP/Z'], $_POST['CCcountry'], $_POST['CCBA1'], $_POST['CCBA2'], $_POST['CCED']
+                ));
             }
             if($qtyTShirts > 0 && $qtyTShirts != null){
-                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL ,?,?,?,?)';
+                $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
                     4, $qtyTShirts, number_format($_POST['qtyTShirts'] * 0.1, 2)
+                ));
+                $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute(array(
+                    $_POST['CCname'], $_POST['CCnumber'], $_POST['CCcity'], $_POST['CCS/P'], $_POST['CCP/Z'], $_POST['CCcountry'], $_POST['CCBA1'], $_POST['CCBA2'], $_POST['CCED']
                 ));
             }
 
