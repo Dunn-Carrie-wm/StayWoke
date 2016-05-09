@@ -40,8 +40,22 @@
     </div>
 </nav>
 <div class="content">
-    <canvas id="canvas"></canvas>
+
+   <div id="game">
+
+       <div id="blackout">
+           <p>You Died</p>
+           <br>
+           <p onclick="location.reload();">Retry?</p>
+       </div>
+
+       <canvas id="canvas"></canvas>
+
+   </div>
+
+
 </div>
+
 <script src="js/Game.js"></script>
 <footer>
     <p style="background-color: black; color: white; text-align: center">
