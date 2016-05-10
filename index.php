@@ -28,11 +28,11 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">Home</a></li>
-                <li><a href="register/">Register</a></li>
                 <li><a href="highscores/">High scores</a></li>
                 <li><a href="shop/">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="register/">Register</a></li>
                 <li><a href="login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-out" >Logout</a></li>
             </ul>
