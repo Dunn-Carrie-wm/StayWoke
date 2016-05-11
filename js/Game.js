@@ -23,8 +23,9 @@ var background;
 
 function init() {
     var playersheet = new SpriteSheet("res/sprite_player_rightsheet.png");
-    player = new Player(new Vector(35*32, 25*32), 32, 32, playersheet);
+    player = new Player(new Vector(32, 50*32), 32, 32, playersheet);
     //should be (32, 50*32), 32, 32
+    //(35*32, 25*32), 32, 32,
     world = new World();
 
     var tilesheet = new SpriteSheet("res/sprite_background.png");
