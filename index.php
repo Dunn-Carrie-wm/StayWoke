@@ -46,6 +46,10 @@
        <div id="blackout">
            <p>You Died</p>
            <br>
+           <form>
+               <input type="hidden">
+               <input type="submit" value="Post Highscore">
+           </form>
            <p onclick="location.reload();">Retry?</p>
        </div>
 

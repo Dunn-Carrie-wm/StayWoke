@@ -23,7 +23,7 @@ var background;
 
 function init() {
     var playersheet = new SpriteSheet("res/sprite_player_rightsheet.png");
-    player = new Player(new Vector(35*32, 25*32), 32, 32, playersheet);
+    player = new Player(new Vector(1*32, 50*32), 32, 32, playersheet);
     //should be (32, 50*32), 32, 32
     world = new World();
 
@@ -32,9 +32,6 @@ function init() {
     var tilespike = new SpriteSheet("res/sprite_spike.png");
     var tileenergy = new SpriteSheet("res/sprite_energy.png");
     var tilecoffee = new SpriteSheet("res/sprite_coffee.png");
-
-
-
 
     tiles[2] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
     tiles[10] = new Tile(new Sprite(tileblock, 0, 0, 32, 32));
