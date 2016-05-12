@@ -62,4 +62,20 @@ input {
 #currentScore{
     color:white;
     position:absolute;
+    bottom: 602px;
+    left: 1200px;
+}
+
+#aboveTimer{
+    color: white;
+    position: absolute;
+    bottom: 620px;
+    left: 200px;
+}
+
+#aboveCurrentScore{
+    color:white;
+    position:absolute;
+    bottom: 622px;
+    left: 1200px;
 }

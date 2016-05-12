@@ -39,12 +39,15 @@ function init() {
     var tilespike = new SpriteSheet("res/sprite_spike.png");
     var tileenergy = new SpriteSheet("res/sprite_energy.png");
     var tilecoffee = new SpriteSheet("res/sprite_coffee.png");
+    var tiledoor = new SpriteSheet("res/sprite_door.png");
+
 
     tiles[2] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
     tiles[10] = new Tile(new Sprite(tileblock, 0, 0, 32, 32));
     tiles[3] = new Tile(new Sprite(tilespike, 0, 0, 32, 32));
     tiles[5] = new Tile(new Sprite(tileenergy, 0, 0, 32, 32));
     tiles[6] = new Tile(new Sprite(tilecoffee, 0, 0, 32, 32));
+    tiles[9] = new Tile(new Sprite(tiledoor, 0, 0, 32, 32));
 
 
     background = new Sprite(new SpriteSheet("res/gradient.png"), 0, 0, 800, 480);
@@ -59,13 +62,18 @@ function update() {
       if(engine.key("SPACE")) {
           if(score > highscore) {
               engine.keys[32] = false;
-              if(confirm("Are you sure?")) {
+              if(confirm("Are you sure? You just beat your high score")) {
                   location.reload();
               }
           }
           else location.reload();
       }
     }
+
+    document.getElementById('timer').innerHTML = time;
+    document.getElementById('currentScore').innerHTML = score;
+
+
 }
 
 function render(context) {

@@ -92,9 +92,10 @@ function getToken() {
        </div>
 
        <canvas id="canvas"></canvas>
-
-       <p id="timer">123</p>
-       <p id="currentScore">abc</p>
+       <p id="timer"></p>
+       <p id="currentScore"></p>
+       <p id = "aboveTimer">Time</p>
+        <p id="aboveCurrentScore">Score</p>
    </div>
 
 
