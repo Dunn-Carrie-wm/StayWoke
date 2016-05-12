@@ -5,6 +5,10 @@ body {
     image-rendering: pixelated;
 }
 
+input {
+    color:black;
+}
+
 .content {
     background-color: rgba(0, 0, 0, 0);
     text-align: center;
