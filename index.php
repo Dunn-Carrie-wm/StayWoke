@@ -81,7 +81,7 @@ function getToken() {
    <div id="game">
 
        <div id="blackout">
-           <p>You Died</p>
+           <p>Game Over</p>
            <p id="score">Score: 0</p>
            <p>Highscore: <?php echo getHighScore($dbh);?></p>
            <form id="scoreform" method="post" action="" style="display: none">

@@ -1,8 +1,8 @@
 <?php
 require('../connect.php');
 
-function getProducts($conn) {
-    $sql = 'SELECT * FROM users';
+function getUsers($conn) {
+    $sql = 'SELECT * FROM users ORDER BY highscore DESC';
     $stmt = $conn->prepare($sql);
     if($stmt->execute()) {
         while($row = $stmt->fetch()) {
@@ -53,7 +53,7 @@ function getProducts($conn) {
     </nav>
     <div class="content">
         <?php
-            getProducts($dbh);
+            getUsers($dbh);
         ?>
     </div>
     <script src="js/Game.js"></script>
