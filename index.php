@@ -46,11 +46,12 @@
        <div id="blackout">
            <p>You Died</p>
            <br>
-           <form>
-               <input type="hidden">
+           <p id="score">Score: 0</p>
+           <form method="post" action="">
+               <input type="hidden" id="highscore" name="highscore">
                <input type="submit" value="Post Highscore">
            </form>
-           <p onclick="location.reload();">Retry?</p>
+           <input type="button" onclick="location.reload();" value="Retry?">
        </div>
 
        <canvas id="canvas"></canvas>

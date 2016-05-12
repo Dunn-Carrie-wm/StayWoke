@@ -14,6 +14,8 @@ function main() {
 
 //GLOBAL VARIABLES GO HERE:
 var running = true;
+var score = 0;
+var bonus = 0;
 
 var player;
 var world;
@@ -94,7 +96,12 @@ function Player(position, width, height, spritesheet) {
     };
 
     this.die = function() {
+        //SHOW DEATH SCREEN
+        score += bonus;
+        document.getElementById('score').innerHTML = "Score: " + score;
         document.getElementById('blackout').style.display = 'block';
+
+        //STOP UPDATING GAME
         running = false;
     };
 
@@ -132,13 +139,17 @@ function Player(position, width, height, spritesheet) {
 
 
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 6 && this.speed != 8) {
-            //this.velocity.y = -8;
+            //ADD TO BONUS SCORE
+            bonus += 10;
+
+            //DELETE POWER UP
+            world.map[y][x] = 0;
+
             //POWER UP RUN FASTER
             this.speed = 8;
-
-                setTimeout(function(){
-                    this.speed=4;
-                }.bind(this), 7000);
+            setTimeout(function(){
+                this.speed = 4;
+            }.bind(this), 7000);
         }
 
 
@@ -211,6 +222,10 @@ function Player(position, width, height, spritesheet) {
             }
         }
 
+        x = Math.floor(this.position.x / 32);
+        if(x > score) score = x;
+
+        //ANIMATION CODE
         if(this.falling) {
             if(this.direction == 0) this.direction = 2;
             if(this.direction == 1) this.direction = 3;
