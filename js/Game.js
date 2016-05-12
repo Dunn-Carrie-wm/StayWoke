@@ -14,8 +14,12 @@ function main() {
 
 //GLOBAL VARIABLES GO HERE:
 var running = true;
+var highscore = document.cookie.replace(/(?:(?:^|.*;\s*)highscore\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 var score = 0;
 var bonus = 0;
+
+var time;
+var limit = 120;
 
 var player;
 var world;
@@ -36,9 +40,6 @@ function init() {
     var tileenergy = new SpriteSheet("res/sprite_energy.png");
     var tilecoffee = new SpriteSheet("res/sprite_coffee.png");
 
-
-
-
     tiles[2] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
     tiles[10] = new Tile(new Sprite(tileblock, 0, 0, 32, 32));
     tiles[3] = new Tile(new Sprite(tilespike, 0, 0, 32, 32));
@@ -51,7 +52,19 @@ function init() {
 
 function update() {
     if(running) {
+        time = limit - new Date().getSeconds();
         player.update();
+    }
+    else {
+      if(engine.key("SPACE")) {
+          if(score > highscore) {
+              engine.keys[32] = false;
+              if(confirm("Are you sure?")) {
+                  location.reload();
+              }
+          }
+          else location.reload();
+      }
     }
 }
 
@@ -97,7 +110,6 @@ function Player(position, width, height, spritesheet) {
 
     this.die = function() {
         //SHOW DEATH SCREEN
-        var highscore = document.cookie.replace(/(?:(?:^|.*;\s*)highscore\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         score += bonus;
         document.getElementById('score').innerHTML = "Score: " + score;
         document.getElementById('highscore').value = score;
