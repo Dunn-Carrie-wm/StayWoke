@@ -18,8 +18,8 @@ var highscore = document.cookie.replace(/(?:(?:^|.*;\s*)highscore\s*\=\s*([^;]*)
 var score = 0;
 var bonus = 0;
 
-var time;
-var limit = 120;
+var timer;
+var time = 120;
 
 var player;
 var world;
@@ -48,11 +48,15 @@ function init() {
 
 
     background = new Sprite(new SpriteSheet("res/gradient.png"), 0, 0, 800, 480);
+
+    timer = setInterval(function() {
+        time--;
+        if(time <= 0) player.die();
+    }, 1000);
 }
 
 function update() {
     if(running) {
-        time = limit - new Date().getSeconds();
         player.update();
     }
     else {
