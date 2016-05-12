@@ -1,5 +1,17 @@
 <?php
 require('../connect.php');
+
+function getProducts($conn) {
+    $sql = 'SELECT * FROM users';
+    $stmt = $conn->prepare($sql);
+    if($stmt->execute()) {
+        while($row = $stmt->fetch()) {
+            echo 'NAME: '.$row['username'].'<br>';
+            echo 'SCORE: '.$row['highscore'].'<br><br>';
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
     <html>
@@ -40,7 +52,9 @@ require('../connect.php');
         </div>
     </nav>
     <div class="content">
-        <canvas id="canvas"></canvas>
+        <?php
+            getProducts($dbh);
+        ?>
     </div>
     <script src="js/Game.js"></script>
     <footer>
