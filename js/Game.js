@@ -97,9 +97,15 @@ function Player(position, width, height, spritesheet) {
 
     this.die = function() {
         //SHOW DEATH SCREEN
+        var highscore = document.cookie.replace(/(?:(?:^|.*;\s*)highscore\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         score += bonus;
         document.getElementById('score').innerHTML = "Score: " + score;
-        document.getElementById('blackout').style.display = 'block';
+        document.getElementById('highscore').value = score;
+        document.getElementById('blackout').style.display = "block";
+
+        if(parseInt(highscore) < score) {
+            document.getElementById('scoreform').style.display = "block";
+        }
 
         //STOP UPDATING GAME
         running = false;

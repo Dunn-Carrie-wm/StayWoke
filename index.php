@@ -1,5 +1,42 @@
 <?php
-//require('connect.php');
+require('connect.php');
+
+if(isset($_POST['submit'])) {
+    $score = $_POST['highscore'];
+    $token = getToken();
+
+    $sql = 'UPDATE users SET highscore = GREATEST(?, highscore) WHERE token = ?';
+    $stmt = $dbh->prepare($sql);
+    if($stmt->execute(array($score, $token))) {
+        //SUCCESS
+    }
+}
+
+function getHighScore($conn) {
+    $token = getToken();
+    $sql = 'SELECT highscore FROM users WHERE token = ?';
+    $stmt = $conn->prepare($sql);
+    if($stmt->execute(array($token))) {
+        $row = $stmt->fetch();
+        if($row['highscore'] != null) {
+            setcookie('highscore', $row['highscore'], 0, "/");
+            return $row['highscore'];
+        }
+        else {
+            return 0;
+        }
+    }
+}
+
+function getToken() {
+    if (isset($_COOKIE['token'])) {
+        return $_COOKIE['token'];
+    }
+    else {
+        header('location:/StayWoke/login/');
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,11 +82,11 @@
 
        <div id="blackout">
            <p>You Died</p>
-           <br>
            <p id="score">Score: 0</p>
-           <form method="post" action="">
+           <p>Highscore: <?php echo getHighScore($dbh);?></p>
+           <form id="scoreform" method="post" action="" style="display: none">
                <input type="hidden" id="highscore" name="highscore">
-               <input type="submit" value="Post Highscore">
+               <input type="submit" name="submit" value="Post Highscore">
            </form>
            <input type="button" onclick="location.reload();" value="Retry?">
        </div>
