@@ -75,16 +75,12 @@ function Player(position, width, height, spritesheet) {
     this.sprites[3] = new Sprite(spritesheet, 0, 32, 32, 32);
     this.sprites[4] = new Sprite(spritesheet, 32, 32, 32, 32);
     this.sprites[5] = new Sprite(spritesheet, 64, 32, 32, 32);
-    /*this.sprites[6] = new Sprite(spritesheet, 16 * 2, 24 * 1, 16, 24);
-    this.sprites[7] = new Sprite(spritesheet, 16 * 3, 24 * 1, 16, 24);
-    this.sprites[8] = new Sprite(spritesheet, 16 * 0, 24 * 2, 16, 24);
-    this.sprites[9] = new Sprite(spritesheet, 16 * 1, 24 * 2, 16, 24);
-    this.sprites[10] = new Sprite(spritesheet, 16 * 2, 24 * 2, 16, 24);
-    this.sprites[11] = new Sprite(spritesheet, 16 * 3, 24 * 2, 16, 24);
-    this.sprites[12] = new Sprite(spritesheet, 16 * 0, 24 * 3, 16, 24);
-    this.sprites[13] = new Sprite(spritesheet, 16 * 1, 24 * 3, 16, 24);
-    this.sprites[14] = new Sprite(spritesheet, 16 * 2, 24 * 3, 16, 24);
-    this.sprites[15] = new Sprite(spritesheet, 16 * 3, 24 * 3, 16, 24);*/
+    this.sprites[6] = new Sprite(spritesheet, 0, 64, 32, 32);
+    this.sprites[7] = new Sprite(spritesheet, 32, 64, 32, 32);
+    this.sprites[8] = new Sprite(spritesheet, 64, 64, 32, 32);
+    this.sprites[9] = new Sprite(spritesheet, 0, 96, 32, 32);
+    this.sprites[10] = new Sprite(spritesheet, 32, 96, 32, 32);
+    this.sprites[11] = new Sprite(spritesheet, 64, 96, 32, 32);
 
     this.moving = false;
     this.falling = false;
@@ -215,7 +211,16 @@ function Player(position, width, height, spritesheet) {
             }
         }
 
-        if(this.moving) {
+        if(this.falling) {
+            if(this.direction == 0) this.direction = 2;
+            if(this.direction == 1) this.direction = 3;
+        }
+        else if(this.direction > 1) {
+            if(this.direction == 2) this.direction = 0;
+            if(this.direction == 3) this.direction = 1;
+        }
+
+        if(this.moving || this.falling) {
             if(this.animation.frame < this.animation.max) {
                 this.animation.frame += 1;
             } else {
