@@ -5,10 +5,24 @@ function getUsers($conn) {
     $sql = 'SELECT * FROM users ORDER BY highscore DESC';
     $stmt = $conn->prepare($sql);
     if($stmt->execute()) {
+        echo '<div style="background-color: lightblue">';
+        echo '<table class="table table-striped">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Name</th>';
+        echo '<th>Score</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
         while($row = $stmt->fetch()) {
-            echo 'NAME: '.$row['username'].'<br>';
-            echo 'SCORE: '.$row['highscore'].'<br><br>';
+            echo '<tr>';
+            echo '<td> '.$row['username'].'</td> ';
+            echo '<td> '.$row['highscore'].'</td>';
+            echo '</tr>';
         }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
     }
 }
 
@@ -52,13 +66,16 @@ function getUsers($conn) {
         </div>
     </nav>
     <div class="content">
+        <h1 style="font-family:'OCR A Std'">
+            Highscores
+        </h1>
         <?php
             getUsers($dbh);
         ?>
     </div>
     <script src="js/Game.js"></script>
     <footer>
-        <p style="background-color: black; color: white; text-align: center">
+        <p style="background-color: black; color: white; text-align: center; font-family: 'OCR A Std'">
             &copy; Stay Woke 2016
         </p>
     </footer>
