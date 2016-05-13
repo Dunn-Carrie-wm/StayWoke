@@ -30,3 +30,8 @@ CREATE TABLE `staywokedb`.`creditCards` (
   `BillingAddress2` VARCHAR(128) NULL,
   `ExspirarionDate` VARCHAR(6) NULL,
   PRIMARY KEY (`id`));
+
+ALTER TABLE `staywokedb`.`users`
+ADD COLUMN `rank` VARCHAR(45) NULL DEFAULT 'member' AFTER `highscore`,
+ADD UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC);

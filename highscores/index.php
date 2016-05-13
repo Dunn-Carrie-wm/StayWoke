@@ -9,15 +9,19 @@ function getUsers($conn) {
         echo '<table class="table table-striped">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>Name</th>';
-        echo '<th>Score</th>';
+        echo '<th>Rank</th>';
+        echo '<th style="text-align: center">Name</th>';
+        echo '<th style="text-align: right">Score</th>';
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
+        $i = 0;
         while($row = $stmt->fetch()) {
+            $i++;
             echo '<tr>';
-            echo '<td> '.$row['username'].'</td> ';
-            echo '<td> '.$row['highscore'].'</td>';
+            echo '<td class="left">'.$i.'</td>';
+            echo '<td>'.$row['username'].'</td> ';
+            echo '<td class="right">'.$row['highscore'].'</td>';
             echo '</tr>';
         }
         echo '</tbody>';
@@ -49,7 +53,7 @@ function getUsers($conn) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="../res/stay_woke_logo.png" height="80px" width="80px"></img>
+                <img src="../res/stay_woke_logo.png" height="80px" width="80px">
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
