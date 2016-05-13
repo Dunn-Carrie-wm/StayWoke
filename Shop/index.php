@@ -1,6 +1,4 @@
-<?php
-require('../connect.php');
-?>
+<?php require('../connect.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +40,7 @@ require('../connect.php');
         <center>
             <table border="1px">
                 <tr>
-                    <td width="150px"><center>Extra Lives:$0.10</center></td><td>
+                    <td width="150px"><center>Extra Lives:$1 4 lives</center></td><td>
                         <p>Play the game 1 more time before needing to recharge</p><p><?php
                             //checks to see if $_POST['qtyLives'] has been set yet, if not sets to null
                             //This is to avoid the error in the next line when the computer doesn't know what $_POST['qtyLives'] is
@@ -56,10 +54,10 @@ require('../connect.php');
                             }else{
                                 //if the user HAS added to cart, allow the user to update and show the user how much it costs
                                 echo "<input type='number' name='qtyLives' min='0' value='$qtyLives'><button>Update Cart</button>
-                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyLives*0.1, 2)."</a>";
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyLives*1, 2)."</a>";
                             }
-                            ?></p></td><td width="150px"><center>Skin Tickets:$0.50</center></td><td>
-                        <p>Use them to buy skins in-game to change your character's skin</p><p><?php
+                            ?></p></td><td width="150px"><center>Skin Tickets:$0.50</center></td>
+                    <td><p>Use them to buy skins in-game to change your character's skin</p><p><?php
                             //Copy/paste of Lives, changed to Skins
                             if(!isset($_POST['qtySkins'])){$_POST['qtySkins'] = null;}
                             $qtySkins = $_POST['qtySkins'];
@@ -72,7 +70,7 @@ require('../connect.php');
                             ?></p></td>
                 </tr>
                 <tr>
-                    <td width="150px"><center>Mugs:$1.80</center></td><td>
+                    <td width="150px"><center>Mugs:$3.80</center></td><td>
                         <p>Drink your beverage in a mug with the StayWoke logo</p><p><?php
                             //Copy/paste of Lives, changed to Mugs
                             if(!isset($_POST['qtyMugs'])){$_POST['qtyMugs'] = null;}
@@ -81,10 +79,10 @@ require('../connect.php');
                                 echo "<input type='number' name='qtyMugs' min='0' value='$qtyMugs'><button>Add to Cart</button>";
                             }else{
                                 echo "<input type='number' name='qtyMugs' min='0' value='$qtyMugs'><button>Update Cart</button>
-                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyMugs*1.8, 2)."</a>";
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyMugs*3.8, 2)."</a>";
                             }
-                            ?></p></td><td width="150px"><center>T-Shirt:$20.00</center></td><td>
-                        <p>Get a T-Shirt with the StayWoke Logo on it</p><p><?php
+                            ?></p></td><td width="150px"><center>T-Shirt:$26.00</center></td>
+                    <td><p>Get a T-Shirt with the StayWoke Logo on it</p><p><?php
                             //Copy/paste of Lives, changed to TShirts
                             if(!isset($_POST['qtyTShirts'])){$_POST['qtyTShirts'] = null;}
                             $qtyTShirts = $_POST['qtyTShirts'];
@@ -92,7 +90,7 @@ require('../connect.php');
                                 echo "<input type='number' name='qtyTShirts' min='0' value='$qtyTShirts'><button>Add to Cart</button>";
                             }else{
                                 echo "<input type='number' name='qtyTShirts' min='0' value='$qtyTShirts'><button>Update Cart</button>
-                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyTShirts*20, 2)."</a>";
+                            <a style='background-color: white; color: lawngreen'>$".number_format($qtyTShirts*26, 2)."</a>";
                             }
                             ?></p></td>
                 </tr>
@@ -110,8 +108,6 @@ require('../connect.php');
                     </div></td></tr>
             </table>
         </center>
-
-
         <?php
         echo "<button name='submit'>Submit</button>";
         if(isset($_POST['submit'])){
@@ -120,7 +116,7 @@ require('../connect.php');
                 $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
-                    1, $qtyLives, number_format($_POST['qtyLives'] * 0.1, 2)
+                    1, $qtyLives, number_format($_POST['qtyLives'] * 1, 2)
                 ));
                 $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
                 $stmt = $dbh->prepare($sql);
@@ -132,7 +128,7 @@ require('../connect.php');
                 $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
-                    2, $qtySkins, number_format($_POST['qtySkins'] * 0.1, 2)
+                    2, $qtySkins, number_format($_POST['qtySkins'] * 0.5, 2)
                 ));
                 $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
                 $stmt = $dbh->prepare($sql);
@@ -144,7 +140,7 @@ require('../connect.php');
                 $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
-                    3, $qtyMugs, number_format($_POST['qtyMugs'] * 0.1, 2)
+                    3, $qtyMugs, number_format($_POST['qtyMugs'] * 3.8, 2)
                 ));
                 $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
                 $stmt = $dbh->prepare($sql);
@@ -156,7 +152,7 @@ require('../connect.php');
                 $sql = 'INSERT INTO purchases (id, item_id, amount, total_cost) VALUES (NULL,?,?,?)';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute(array(
-                    4, $qtyTShirts, number_format($_POST['qtyTShirts'] * 0.1, 2)
+                    4, $qtyTShirts, number_format($_POST['qtyTShirts'] * 26, 2)
                 ));
                 $sql = 'INSERT INTO creditCards (id, CardholderName, CardNumber, City, StateProvince, PostalZIP_code, Country, BillingAddress1, BillingAddress2, ExspirarionDate)VALUES (NULL,?,?,?,?,?,?,?,?,?)';
                 $stmt = $dbh->prepare($sql);
@@ -164,7 +160,9 @@ require('../connect.php');
                     $_POST['CCname'], $_POST['CCnumber'], $_POST['CCcity'], $_POST['CCS/P'], $_POST['CCP/Z'], $_POST['CCcountry'], $_POST['CCBA1'], $_POST['CCBA2'], $_POST['CCED']
                 ));
             }
-
+            echo "<script>
+                    alert('Thank you for your purchases');
+                 </script>";
             $url = 'http://localhost:8090/StayWoke/shop/submit_button.php';
             header('location: '.$url);
         }
@@ -176,5 +174,5 @@ require('../connect.php');
         &copy; Stay Woke 2016
     </p>
 </footer>
-</html>
 </body>
+</html>
