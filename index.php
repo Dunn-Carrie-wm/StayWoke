@@ -100,10 +100,9 @@ function getToken() {
 
 
 </div>
-
 <script src="js/Game.js"></script>
 <footer>
-    <p style="background-color: black; color: white; text-align: center">
+    <p style="background-color: black; color: white; text-align: center; font-family: 'OCR A Std'">
         &copy; Stay Woke 2016
     </p>
 </footer>
