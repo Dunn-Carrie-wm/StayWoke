@@ -9,6 +9,14 @@ input {
     color:black;
 }
 
+td.left {
+    text-align: left;
+}
+
+td.right {
+    text-align: right;
+}
+
 .content {
     background-color: rgba(0, 0, 0, 0);
     text-align: center;

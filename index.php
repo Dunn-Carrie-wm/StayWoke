@@ -86,9 +86,9 @@ function getToken() {
            <p>Highscore: <?php echo getHighScore($dbh);?></p>
            <form id="scoreform" method="post" action="" style="display: none">
                <input type="hidden" id="highscore" name="highscore">
-               <input type="submit" name="submit" value="Post Highscore">
+               <input style="width: 500px" type="submit" name="submit" value="Post Highscore">
            </form>
-           <input type="button" onclick="location.reload();" value="Retry?">
+           <input style="width: 500px" type="button" onclick="location.reload();" value="Retry?">
        </div>
 
        <canvas id="canvas"></canvas>

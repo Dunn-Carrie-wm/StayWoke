@@ -19,7 +19,7 @@ var score = 0;
 var bonus = 0;
 
 var timer;
-var time = 120;
+var time = 300;
 
 var player;
 var world;
@@ -123,6 +123,7 @@ function Player(position, width, height, spritesheet) {
     this.die = function() {
         clearInterval(timer);
         time = Math.max(time, 0);
+
         //SHOW DEATH SCREEN
         score += bonus;
         document.getElementById('score').innerHTML = "Score: " + score;
