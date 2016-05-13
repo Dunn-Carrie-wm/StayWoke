@@ -44,7 +44,7 @@ input {
     color: white;
 
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 2;
     /*opacity: 0.5;*/
 
     font-size: 70px;
@@ -57,6 +57,8 @@ input {
     position: absolute;
     bottom: 600px;
     left: 200px;
+    z-index: 1;
+
 }
 
 #currentScore{
@@ -64,6 +66,8 @@ input {
     position:absolute;
     bottom: 602px;
     left: 1200px;
+    z-index: 1;
+
 }
 
 #aboveTimer{
@@ -71,6 +75,8 @@ input {
     position: absolute;
     bottom: 620px;
     left: 200px;
+    z-index: 1;
+
 }
 
 #aboveCurrentScore{
@@ -78,4 +84,10 @@ input {
     position:absolute;
     bottom: 622px;
     left: 1200px;
+    z-index: 1;
+}
+
+canvas{
+    position:relative;
+    z-index: 0;
 }

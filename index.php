@@ -95,7 +95,7 @@ function getToken() {
        <p id="timer"></p>
        <p id="currentScore"></p>
        <p id = "aboveTimer">Time</p>
-        <p id="aboveCurrentScore">Score</p>
+       <p id="aboveCurrentScore">Score</p>
    </div>
 
 
