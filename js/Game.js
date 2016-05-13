@@ -19,7 +19,7 @@ var score = 0;
 var bonus = 0;
 
 var timer;
-var time = 120;
+var time = 300;
 
 var player;
 var world;
