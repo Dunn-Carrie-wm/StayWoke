@@ -4,8 +4,8 @@ CREATE SCHEMA `staywokedb`;
 
 CREATE TABLE `staywokedb`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(16) NULL,
-  `email` VARCHAR(128) NULL,
+  `username` VARCHAR(16) UNIQUE NULL,
+  `email` VARCHAR(128) UNIQUE NULL,
   `password` VARCHAR(128) NULL,
   `token` VARCHAR(128) NULL,
   `highscore` INT NULL DEFAULT 0,

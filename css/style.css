@@ -1,8 +1,12 @@
 body {
-    color: white;
+    color: black;
     background-image: url("http://blog.thornyeternity.com/wp-content/uploads/2011/04/soft-flow-article.jpg");
     background-size: 80%;
     image-rendering: pixelated;
+}
+
+input {
+    color:black;
 }
 
 .content {
@@ -17,4 +21,61 @@ body {
 @-webkit-keyframes fadein {
     from {opacity: 0;}
     to {opacity: 1;}
+}
+
+#game{
+    position: relative;
+    z-index: 0;
+}
+
+#blackout
+{
+    position: absolute;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 78%;
+    height: 99%;
+    display: none;
+
+    color: white;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    /*opacity: 0.5;*/
+
+    font-size: 70px;
+
+    -webkit-animation: fadein 0.6s;
+}
+
+#timer{
+    color: white;
+    position: absolute;
+    bottom: 600px;
+    left: 200px;
+}
+
+#currentScore{
+    color:white;
+    position:absolute;
+    bottom: 602px;
+    left: 1200px;
+}
+
+#aboveTimer{
+    color: white;
+    position: absolute;
+    bottom: 620px;
+    left: 200px;
+}
+
+#aboveCurrentScore{
+    color:white;
+    position:absolute;
+    bottom: 622px;
+    left: 1200px;
 }

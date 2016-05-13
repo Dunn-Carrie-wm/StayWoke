@@ -1,4 +1,43 @@
-<?php require('connect.php'); ?>
+<?php
+require('connect.php');
+
+if(isset($_POST['submit'])) {
+    $score = $_POST['highscore'];
+    $token = getToken();
+
+    $sql = 'UPDATE users SET highscore = GREATEST(?, highscore) WHERE token = ?';
+    $stmt = $dbh->prepare($sql);
+    if($stmt->execute(array($score, $token))) {
+        //SUCCESS
+    }
+}
+
+function getHighScore($conn) {
+    $token = getToken();
+    $sql = 'SELECT highscore FROM users WHERE token = ?';
+    $stmt = $conn->prepare($sql);
+    if($stmt->execute(array($token))) {
+        $row = $stmt->fetch();
+        if($row['highscore'] != null) {
+            setcookie('highscore', $row['highscore'], 0, "/");
+            return $row['highscore'];
+        }
+        else {
+            return 0;
+        }
+    }
+}
+
+function getToken() {
+    if (isset($_COOKIE['token'])) {
+        return $_COOKIE['token'];
+    }
+    else {
+        header('location:/StayWoke/login/');
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,16 +60,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img src="res/stay_woke_logo.png" height="80px" width="80px"></img>
+            <img src="res/stay_woke_logo.png" height="80px" width="80px">
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">Home</a></li>
-                <li><a href="register/">Register</a></li>
                 <li><a href="highscores/">High scores</a></li>
                 <li><a href="shop/">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="register/">Register</a></li>
                 <li><a href="login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-out" >Logout</a></li>
             </ul>
@@ -38,8 +77,30 @@
     </div>
 </nav>
 <div class="content">
-    <canvas id="canvas"></canvas>
+
+   <div id="game">
+
+       <div id="blackout">
+           <p>Game Over</p>
+           <p id="score">Score: 0</p>
+           <p>Highscore: <?php echo getHighScore($dbh);?></p>
+           <form id="scoreform" method="post" action="" style="display: none">
+               <input type="hidden" id="highscore" name="highscore">
+               <input type="submit" name="submit" value="Post Highscore">
+           </form>
+           <input type="button" onclick="location.reload();" value="Retry?">
+       </div>
+
+       <canvas id="canvas"></canvas>
+       <p id="timer"></p>
+       <p id="currentScore"></p>
+       <p id = "aboveTimer">Time</p>
+        <p id="aboveCurrentScore">Score</p>
+   </div>
+
+
 </div>
+
 <script src="js/Game.js"></script>
 <footer>
     <p style="background-color: black; color: white; text-align: center">

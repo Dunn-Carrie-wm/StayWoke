@@ -1,5 +1,42 @@
 <?php
 require('../connect.php');
+
+function login($conn) {
+    setcookie('token', "", 0, "/");
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $sql = 'SELECT * FROM users WHERE username = ? AND password = SHA(?)';
+    $stmt = $conn->prepare($sql);
+    if ($stmt->execute(array($username, $password))) {
+        $accountExists = false;
+        while ($row = $stmt->fetch()) {
+            $accountExists = true;
+            $token = generateToken();
+            $sql = 'UPDATE users SET token = ? WHERE username = ?';
+            $stmt1 = $conn->prepare($sql);
+            if ($stmt1->execute(array($token, $username))) {
+                setcookie('token', $token, 0, "/");
+                header('location:/StayWoke/');
+            }
+        }
+        if(!$accountExists) {
+            echo '<form class="" action="" method="post" style="text-align: center">
+                <span>Incorrect Username or Password</span><br>
+                <input name="username" maxlength="16" placeholder="Username"/><br>
+                <input type="password" name="password" maxlength="40" placeholder="Password"/><br>
+                <input class="submit" type="submit" name="submit" value="Log In" style="color: black"/><br>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                </form>';
+        }
+    }
+}
+
+function generateToken() {
+    $date = date(DATE_RFC2822);
+    $rand = rand();
+    return sha1($date.$rand);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,12 +61,12 @@ require('../connect.php');
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="../index.php">Home</a></li>
-                <li><a href="../register">Register</a></li>
                 <li><a href="../highscores">High scores</a></li>
                 <li><a href="../shop">Store</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="../register">Register</a></li>
                 <li class="active"><a href="index.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-out" >Logout</a></li>
             </ul>
@@ -39,7 +76,7 @@ require('../connect.php');
 <div class="content">
     <?php
     if(isset($_POST['submit'])) {
-        //login($dbh);
+        login($dbh);
     }
     else {
         echo '<form class="" action="" method="post" style="text-align: center">
