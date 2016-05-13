@@ -123,6 +123,7 @@ function Player(position, width, height, spritesheet) {
     this.die = function() {
         clearInterval(timer);
         time = Math.max(time, 0);
+
         //SHOW DEATH SCREEN
         score += bonus;
         document.getElementById('score').innerHTML = "Score: " + score;
