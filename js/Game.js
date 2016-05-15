@@ -73,11 +73,6 @@ function update() {
           else location.reload();
       }
     }
-
-    document.getElementById('timer').innerHTML = time;
-    document.getElementById('currentScore').innerHTML = score;
-
-
 }
 
 function render(context) {
@@ -85,6 +80,14 @@ function render(context) {
     background.render(context, 0, 0);
     world.render(context, player.position.sub(new Vector(12 * 32, 7 * 32)).scale(-1));
     player.render(context);
+
+    //TIME AND SCOREBOARD
+    context.fillStyle = "white";
+    context.font = "20px Arial";
+    context.fillText("TIME", 16, 32);
+    context.fillText(time, 16, 56);
+    context.fillText("SCORE", engine.canvas.width - 88, 32);
+    context.fillText(score + bonus, engine.canvas.width - 88, 56);
 }
 
 //OBJECT FUNCTIONS GO HERE:
