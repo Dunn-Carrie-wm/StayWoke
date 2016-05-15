@@ -77,9 +77,7 @@ function getToken() {
     </div>
 </nav>
 <div class="content">
-
    <div id="game">
-
        <div id="blackout">
            <p>Game Over</p>
            <p id="score">Score: 0</p>
@@ -93,8 +91,6 @@ function getToken() {
 
        <canvas id="canvas"></canvas>
    </div>
-
-
 </div>
 <script src="js/Game.js"></script>
 <footer>

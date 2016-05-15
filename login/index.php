@@ -20,7 +20,7 @@ function login($conn) {
             }
         }
         if(!$accountExists) {
-            echo '<form class="" action="" method="post" style="text-align: center">
+            echo '<form class="account" action="" method="post" style="text-align: center">
                 <span>Incorrect Username or Password</span><br>
                 <input name="username" maxlength="16" placeholder="Username"/><br>
                 <input type="password" name="password" maxlength="40" placeholder="Password"/><br>
@@ -79,7 +79,7 @@ function generateToken() {
         login($dbh);
     }
     else {
-        echo '<form class="" action="" method="post" style="text-align: center">
+        echo '<form class="account" action="" method="post" style="text-align: center">
                 <input name="username" maxlength="16" placeholder="Username"/><br>
                 <input type="password" name="password" maxlength="40" placeholder="Password"/><br>
                 <input class="submit" type="submit" name="submit" value="Log In" style="color: black"/><br>

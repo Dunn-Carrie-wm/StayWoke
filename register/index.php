@@ -7,7 +7,7 @@ function register($conn) {
     $password = $_POST['password'];
 
     $continue = true;
-    $form = '<form class="" action="" method="post" style="text-align: center;">
+    $form = '<form class="account" action="" method="post" style="text-align: center;">
                 <span>Missing Required Fields.</span><br><br>';
     if(!isset($username) || trim($username) == '') {
         $form .= '<input class="required" name="username" maxlength="16" placeholder="Username"/><br>';
@@ -104,7 +104,7 @@ function generateToken() {
         register($dbh);
     }
     else {
-        echo '<form class="" action="" method="post" style="text-align: center">
+        echo '<form class="account" action="" method="post" style="text-align: center">
                 <input name="username" maxlength="16" placeholder="Username"/><br>
                 <input name="email" maxlength="40" placeholder="Email"/><br>
                 <input type="password" name="password" maxlength="40" placeholder="Password"/><br>
