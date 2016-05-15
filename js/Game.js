@@ -14,6 +14,7 @@ function main() {
 
 //GLOBAL VARIABLES GO HERE:
 var running = true;
+var complete = false;
 var highscore = document.cookie.replace(/(?:(?:^|.*;\s*)highscore\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 var score = 0;
 var bonus = 0;
@@ -128,12 +129,16 @@ function Player(position, width, height, spritesheet) {
         time = Math.max(time, 0);
 
         //SHOW DEATH SCREEN
-        score += bonus;
-        document.getElementById('score').innerHTML = "Score: " + score;
-        document.getElementById('highscore').value = score;
+        var finalScore = score + bonus;
+        if(complete) {
+            finalScore += time;
+        }
+
+        document.getElementById('score').innerHTML = "Score: " + finalScore;
+        document.getElementById('highscore').value = finalScore;
         document.getElementById('blackout').style.display = "block";
 
-        if(parseInt(highscore) < score) {
+        if(parseInt(highscore) < finalScore) {
             document.getElementById('scoreform').style.display = "block";
         }
 
@@ -194,7 +199,7 @@ function Player(position, width, height, spritesheet) {
         }
 
 
-        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 5) {
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 5 && this.immortality == false) {
             //ADD TO BONUS SCORE
             bonus += 10;
 
