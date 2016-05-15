@@ -49,7 +49,6 @@ function getToken() {
     <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/engine/Engine.js"></script>
 <script type="text/javascript" src="js/engine/Vector.js"></script>
-<script type="text/javascript" src="js/engine/Entity.js"></script>
 </head>
 <body onload="main()">
 <nav class="navbar navbar-inverse">
