@@ -49,7 +49,6 @@ function getToken() {
     <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/engine/Engine.js"></script>
 <script type="text/javascript" src="js/engine/Vector.js"></script>
-<script type="text/javascript" src="js/engine/Entity.js"></script>
 </head>
 <body onload="main()">
 <nav class="navbar navbar-inverse">
@@ -77,9 +76,7 @@ function getToken() {
     </div>
 </nav>
 <div class="content">
-
    <div id="game">
-
        <div id="blackout">
            <p>Game Over</p>
            <p id="score">Score: 0</p>
@@ -92,13 +89,7 @@ function getToken() {
        </div>
 
        <canvas id="canvas"></canvas>
-       <p id="timer"></p>
-       <p id="currentScore"></p>
-       <p id = "aboveTimer">Time</p>
-       <p id="aboveCurrentScore">Score</p>
    </div>
-
-
 </div>
 <script src="js/Game.js"></script>
 <footer>

@@ -5,7 +5,7 @@ function getUsers($conn) {
     $sql = 'SELECT * FROM users ORDER BY highscore DESC';
     $stmt = $conn->prepare($sql);
     if($stmt->execute()) {
-        echo '<div style="background-color: lightblue">';
+        echo '<div style="background-color: lightsteelblue">';
         echo '<table class="table table-striped">';
         echo '<thead>';
         echo '<tr>';
