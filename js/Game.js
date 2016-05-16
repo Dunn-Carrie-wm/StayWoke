@@ -253,7 +253,7 @@ function Player(position, width, height, spritesheet) {
 
                     enemies.splice(i, 1);
                 }
-                else {
+                else if(!this.immortality) {
                     this.die();
                 }
             }
