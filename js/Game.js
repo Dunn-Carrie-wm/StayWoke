@@ -26,10 +26,13 @@ var player;
 var world;
 var tiles = [];
 var enemies = [];
+var emitters = [];
 
 var background;
 
 function init() {
+    //TEST EMITTER CODE, USE IN CONSOLE: emitters.push(new Emitter(player.position, 2, 64, ["red", "blue", "white"])); emitters[emitters.length - 1].running = true;
+    
     var playersheet = new SpriteSheet("res/player.png");
     player = new Player(new Vector(249*32, 2*32), 32, 32, playersheet);
     //should be (32, 50*32), 32, 32,
@@ -67,6 +70,9 @@ function update() {
         for(var i = 0; i < enemies.length; i++) {
             enemies[i].update();
         }
+        for(var i = 0; i < emitters.length; i++) {
+            emitters[i].update();
+        }
     }
     else {
       if(engine.key("SPACE")) {
@@ -89,6 +95,9 @@ function render(context) {
         enemies[i].render(context, player.position.sub(new Vector(12 * 32, 7 * 32)).scale(-1));
     }
     player.render(context);
+    for(var i = 0; i < emitters.length; i++) {
+        emitters[i].render(context, player.position.sub(new Vector(12 * 32, 7 * 32)).scale(-1));
+    }
 
     //TIME AND SCOREBOARD
     context.fillStyle = "white";
@@ -489,12 +498,53 @@ function Emitter(position, speed, max, colors) {
     this.max = max;
     this.colors = colors;
 
-    this.update = function() {
+    this.particles = [];
 
+    this.update = function() {
+        if(this.running && this.particles.length < this.limit) {
+            var angle = Math.random() * 360;
+            var color = this.colors[Math.floor(Math.random() * this.colors.length)];
+            this.particles.push(new Particle(this.position, this.speed, angle, this.max, color));
+        }
+        for(var i = 0; i < this.particles.length; i++) {
+            if(this.particles[i].update()) {
+                this.particles.splice(i, 1);
+            }
+        }
     };
 
     this.render = function(context, offset) {
+        for(var i = 0; i < this.particles.length; i++) {
+            this.particles[i].render(context, offset);
+        }
+    };
+}
 
+function Particle(position, speed, angle, max, color) {
+    this.position = position;
+    this.width = 2;
+    this.height = 2;
+
+    this.speed = speed;
+    this.angle = angle;
+    this.velocity = new Vector(Math.cos(this.angle) * this.speed, Math.sin(this.angle) * this.speed);
+
+    this.age = 0;
+    this.max = max;
+    this.color = color;
+
+    this.update = function() {
+        if(this.age > this.max) {
+           return true;
+        }
+        this.age++;
+
+        this.position = this.position.add(this.velocity);
+    };
+
+    this.render = function(context, offset) {
+        context.fillStyle = this.color;
+        context.fillRect(this.position.x + offset.x, this.position.y + offset.y, this.width, this.height);
     };
 }
 
