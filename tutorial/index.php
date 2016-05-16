@@ -1,5 +1,5 @@
 <?php
-require('connect.php');
+require('../connect.php');
 
 if(isset($_POST['submit'])) {
     $score = $_POST['highscore'];
@@ -46,12 +46,12 @@ function getToken() {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-<script type="text/javascript" src="js/engine/Engine.js"></script>
-<script type="text/javascript" src="js/engine/Vector.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script type="text/javascript" src="..js/engine/Engine.js"></script>
+    <script type="text/javascript" src="..js/engine/Vector.js"></script>
 </head>
 <body onload="main()">
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse">?
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -59,40 +59,49 @@ function getToken() {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img src="res/stay_woke_logo.png" height="80px" width="80px">
+            <img src="../res/stay_woke_logo.png" height="80px" width="80px">
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="">Home</a></li>
-                <li><a href="tutorial/">How to play</a></li>
-                <li><a href="highscores/">High scores</a></li>
-                <li><a href="shop/">Store</a></li>
+                <li><a href="../index.php">Home</a></li>
+                <li class="active"><a href="">How to play</a></li>
+                <li><a href="../highscores/">High scores</a></li>
+                <li><a href="../shop/">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="register/">Register</a></li>
-                <li><a href="login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="../register/">Register</a></li>
+                <li><a href="../login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-out" >Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="content">
-   <div id="game">
-       <div id="blackout">
-           <p>Game Over</p>
-           <p id="score">Score: 0</p>
-           <p>Highscore: <?php echo getHighScore($dbh);?></p>
-           <form id="scoreform" method="post" action="" style="display: none">
-               <input type="hidden" id="highscore" name="highscore">
-               <input style="width: 500px" type="submit" name="submit" value="Post Highscore">
-           </form>
-           <input style="width: 500px" type="button" onclick="location.reload();" value="Retry?">
-       </div>
+<div style="margin-right: auto; margin-left: auto">
+    <h1 style="text-align: center; font-family: 'OCR A Std'">
+        Controls
+    </h1>
+    <div style="margin-left: 30px; margin-right: auto;">
+    <h3 style="font-size: 50px; text-align: center" class="glyphicon glyphicon-arrow-left">
+        <p style="font-size: 15px; font-family: 'OCR A Std'; background-color: lightblue">
+        Use the "A" key to move left.
+        </p>
+    </h3>
 
-       <canvas id="canvas"></canvas>
-   </div>
+    <h3 style="font-size: 50px; text-align: center; margin-left: 200px" class="glyphicon glyphicon-arrow-right">
+        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightblue">
+            Use the "D" key to move right.
+        </p>
+    </h3>
+
+    <h3 style="font-size: 50px; text-align: center; margin-left: 150px;" class="glyphicon glyphicon-arrow-up">
+        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightblue">
+            Use the "space bar" key to jump.
+        </p>
+    </h3>
+
+    </div>
 </div>
-<script src="js/Game.js"></script>
+<script src="../js/Game.js"></script>
 <footer>
     <p style="background-color: black; color: white; text-align: center; font-family: 'OCR A Std'">
         &copy; Stay Woke 2016

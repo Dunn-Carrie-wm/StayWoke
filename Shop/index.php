@@ -24,6 +24,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="../index.php">Home</a></li>
+                <li><a href="../tutorial/">How to play</a></li>
                 <li><a href="../highscores">High scores</a></li>
                 <li class="active"><a href="../shop">Store</a></li>
             </ul>
