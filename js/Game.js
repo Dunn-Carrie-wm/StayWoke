@@ -151,6 +151,12 @@ function Player(position, width, height, spritesheet) {
         frame: 0
     };
 
+    this.speedEmitter = new Emitter(this.position.add(new Vector(16, 16)), 1, 48, ["dodgerblue", "lightblue", "white"]);
+    this.immortalityEmitter = new Emitter(this.position.add(new Vector(16, 16)), 1, 48, ["green", "lightgreen", "limegreen"]);
+
+    emitters.push(this.speedEmitter);
+    emitters.push(this.immortalityEmitter);
+
     this.die = function() {
         clearInterval(timer);
         time = Math.max(time, 0);
@@ -224,6 +230,8 @@ function Player(position, width, height, spritesheet) {
             setTimeout(function(){
                 this.speed = 4;
             }.bind(this), 7000);
+
+            this.speedEmitter.emit(7000);
         }
 
         //MONSTER CAN POWERUP
@@ -239,6 +247,9 @@ function Player(position, width, height, spritesheet) {
             setTimeout(function(){
                 this.immortality = false;
             }.bind(this), 10000);
+
+
+            this.immortalityEmitter.emit(7000);
         }
 
         //TEST FOR ENEMY KILL
@@ -248,9 +259,13 @@ function Player(position, width, height, spritesheet) {
             var enemyBox = new AABB(enemy.position.x, enemy.position.y, enemy.width, enemy.height);
             if(playerBox.getCollision(enemyBox)) {
                 if(this.velocity.y > 2) {
+                    var emitter = new Emitter(enemy.position, .8, 64, ["gray", "lightgray", "white"]);
+                    emitter.emit(1000);
+                    emitters.push(emitter);
+
                     enemies.splice(i, 1);
                 }
-                else {
+                else if(!this.immortality) {
                     this.die();
                 }
             }
@@ -354,6 +369,8 @@ function Player(position, width, height, spritesheet) {
             this.animation.index = 0;
         }
 
+        this.speedEmitter.position = this.position.add(new Vector(16, 16));
+        this.immortalityEmitter.position = this.position.add(new Vector(16, 16));
 
     };
 
@@ -509,6 +526,15 @@ function Emitter(position, speed, max, colors) {
     this.colors = colors;
 
     this.particles = [];
+
+    this.emit = function(time) {
+        this.running = true;
+        if(time != null) {
+            setTimeout(function() {
+                this.running = false;
+            }.bind(this), time);
+        }
+    };
 
     this.update = function() {
         if(this.running && this.particles.length < this.limit) {
