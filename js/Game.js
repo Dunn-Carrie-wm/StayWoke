@@ -25,14 +25,18 @@ var time = 300;
 var player;
 var world;
 var tiles = [];
+var enemies = [];
 
 var background;
 
 function init() {
-    var playersheet = new SpriteSheet("res/sprite_player_rightsheet.png");
+    var playersheet = new SpriteSheet("res/player.png");
     player = new Player(new Vector(249*32, 2*32), 32, 32, playersheet);
     //should be (32, 50*32), 32, 32,
     //(35*32, 25*32), 32, 32,
+    var enemysheet = new SpriteSheet("res/enemy.png");
+    enemies.push(new Enemy(new Vector(266 * 32, 54 * 32), 32, 32, enemysheet));
+
     world = new World();
 
     var tilesheet = new SpriteSheet("res/sprite_background.png");
@@ -42,14 +46,12 @@ function init() {
     var tilecoffee = new SpriteSheet("res/sprite_coffee.png");
     var tiledoor = new SpriteSheet("res/sprite_door.png");
 
-
     tiles[2] = new Tile(new Sprite(tilesheet, 0, 0, 32, 32));
     tiles[10] = new Tile(new Sprite(tileblock, 0, 0, 32, 32));
     tiles[3] = new Tile(new Sprite(tilespike, 0, 0, 32, 32));
     tiles[5] = new Tile(new Sprite(tileenergy, 0, 0, 32, 32));
     tiles[6] = new Tile(new Sprite(tilecoffee, 0, 0, 32, 32));
     tiles[9] = new Tile(new Sprite(tiledoor, 0, 0, 32, 32));
-
 
     background = new Sprite(new SpriteSheet("res/gradient.png"), 0, 0, 800, 480);
 
@@ -62,6 +64,9 @@ function init() {
 function update() {
     if(running) {
         player.update();
+        for(var i = 0; i < enemies.length; i++) {
+            enemies[i].update();
+        }
     }
     else {
       if(engine.key("SPACE")) {
@@ -80,6 +85,9 @@ function render(context) {
     engine.clear();
     background.render(context, 0, 0);
     world.render(context, player.position.sub(new Vector(12 * 32, 7 * 32)).scale(-1));
+    for(var i = 0; i < enemies.length; i++) {
+        enemies[i].render(context, player.position.sub(new Vector(12 * 32, 7 * 32)).scale(-1));
+    }
     player.render(context);
 
     //TIME AND SCOREBOARD
@@ -154,7 +162,7 @@ function Player(position, width, height, spritesheet) {
     this.update = function() {
 
         if(this.falling) {
-            if(Math.abs(this.velocity.y < 16)) this.velocity.y += .5;
+            if(Math.abs(this.velocity.y) < 16) this.velocity.y += .5;
         }
         else if(engine.key("SPACE")) {
             this.velocity.y = -10;
@@ -163,12 +171,12 @@ function Player(position, width, height, spritesheet) {
         var x = Math.floor((this.position.x + 15) / 32);
         var y = Math.floor((this.position.y) / 32);
 
-
-
+        //DETECT IF FLOATING ON AIR
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y + 1][x] < 10) {
             this.falling = true;
         }
 
+        //SPIKE DEATH CODE
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 3) {
             if (this.immortality == 0) {
                 this.die();
@@ -179,11 +187,12 @@ function Player(position, width, height, spritesheet) {
             this.die();
         }
 
+        //WORLD LIMIT DEATH CODE
         if(y > world.getHeight()) {
             this.die();
         }
 
-
+        //COFFEE POWERUP
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 6 && this.speed != 8) {
             //ADD TO BONUS SCORE
             bonus += 10;
@@ -198,7 +207,7 @@ function Player(position, width, height, spritesheet) {
             }.bind(this), 7000);
         }
 
-
+        //MONSTER CAN POWERUP
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 5 && this.immortality == false) {
             //ADD TO BONUS SCORE
             bonus += 10;
@@ -213,6 +222,20 @@ function Player(position, width, height, spritesheet) {
             }.bind(this), 7000);
         }
 
+        //TEST FOR ENEMY KILL
+        var playerBox = new AABB(this.position.x, this.position.y, this.width, this.height);
+        for(var i = 0; i < enemies.length; i++) {
+            var enemy = enemies[i];
+            var enemyBox = new AABB(enemy.position.x, enemy.position.y, enemy.width, enemy.height);
+            if(playerBox.getCollision(enemyBox)) {
+                if(this.velocity.y > 2) {
+                    enemies.splice(i, 1);
+                }
+                else {
+                    this.die();
+                }
+            }
+        }
 
         var initial = new Vector(this.velocity.x, this.velocity.y);
 
@@ -261,7 +284,7 @@ function Player(position, width, height, spritesheet) {
         this.velocity = initial;
 
         //COLLISION CODE
-        var playerBox = new AABB(this.position.x, this.position.y, this.width, this.height);
+        playerBox = new AABB(this.position.x, this.position.y, this.width, this.height);
         x = Math.floor(this.position.x / 32);
         y = Math.floor(this.position.y / 32);
         for(var i = Math.max(0, x - 2); i < Math.min(world.map[0].length, x + 3); i++) {
@@ -282,6 +305,7 @@ function Player(position, width, height, spritesheet) {
             }
         }
 
+        //ADD TO SCORE BASED ON POSITION
         x = Math.floor(this.position.x / 32);
         if(x > score) score = x;
 
@@ -316,6 +340,161 @@ function Player(position, width, height, spritesheet) {
 
     this.render = function(context) {
         this.sprites[this.animation.index + this.direction * 3].render(context, 12 * 32, 7 * 32, this.width, this.height);
+    };
+}
+
+function Enemy(position, width, height, spritesheet) {
+    this.position = position;
+    this.width = width;
+    this.height = height;
+
+    this.velocity = new Vector(0, 0);
+    this.speed = 2;
+
+    this.moving = false;
+    this.falling = false;
+
+    this.direction = 0;
+
+    this.sprites = [];
+    this.sprites[0] = new Sprite(spritesheet, 0, 0, 32, 32);
+    this.sprites[1] = new Sprite(spritesheet, 32, 0, 32, 32);
+    this.sprites[2] = new Sprite(spritesheet, 64, 0, 32, 32);
+    this.sprites[3] = new Sprite(spritesheet, 0, 32, 32, 32);
+    this.sprites[4] = new Sprite(spritesheet, 32, 32, 32, 32);
+    this.sprites[5] = new Sprite(spritesheet, 64, 32, 32, 32);
+    this.sprites[6] = new Sprite(spritesheet, 0, 64, 32, 32);
+    this.sprites[7] = new Sprite(spritesheet, 32, 64, 32, 32);
+    this.sprites[8] = new Sprite(spritesheet, 64, 64, 32, 32);
+    this.sprites[9] = new Sprite(spritesheet, 0, 96, 32, 32);
+    this.sprites[10] = new Sprite(spritesheet, 32, 96, 32, 32);
+    this.sprites[11] = new Sprite(spritesheet, 64, 96, 32, 32);
+
+    this.animation = {
+        index: 0,
+        max: 6,
+        frame: 0
+    };
+
+    this.die = function() {
+
+    };
+
+    this.update = function() {
+        var distance = this.position.sub(player.position).magnitude();
+
+        if(this.falling) {
+            if(Math.abs(this.velocity.y) < 16) this.velocity.y += .5;
+        }
+        else if(player.position.y < this.position.y && distance < 4 * 32) {
+            this.velocity.y = -5;
+        }
+
+        var x = Math.floor((this.position.x + 15) / 32);
+        var y = Math.floor((this.position.y) / 32);
+
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y + 1][x] < 10) {
+            this.falling = true;
+        }
+
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 3) {
+            this.die();
+        }
+
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 4) {
+            this.die();
+        }
+
+        if(y > world.getHeight()) {
+            this.die();
+        }
+
+        var initial = new Vector(this.velocity.x, this.velocity.y);
+
+        if(player.position.x < this.position.x && distance < 8 * 32) {
+            this.velocity.x -= this.speed;
+            this.moving = true;
+            this.direction = 1;
+        }
+        if(player.position.x > this.position.x && distance < 8 * 32) {
+            this.velocity.x += this.speed;
+            this.moving = true;
+            this.direction = 0;
+        }
+
+        this.position = this.position.add(this.velocity);
+        this.velocity = initial;
+
+        //COLLISION CODE
+        var enemyBox = new AABB(this.position.x, this.position.y, this.width, this.height);
+        x = Math.floor(this.position.x / 32);
+        y = Math.floor(this.position.y / 32);
+        for(var i = Math.max(0, x - 2); i < Math.min(world.map[0].length, x + 3); i++) {
+            for (var j = Math.max(0, y - 2); j < Math.min(world.map.length, y + 3); j++) {
+                var tileBox = new AABB(i * 32, j * 32, 32, 32);
+                if(world.map[j][i] >= 10 && enemyBox.getCollision(tileBox)) {
+                    var mtv = enemyBox.getTranslationVector(tileBox);
+                    this.position = this.position.add(mtv);
+
+                    if(Math.abs(mtv.y) > 0) {
+                        this.velocity.y = 0;
+
+                        if(mtv.y < 0) {
+                            this.falling = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        //ANIMATION CODE
+        if(this.falling) {
+            if(this.direction == 0) this.direction = 2;
+            if(this.direction == 1) this.direction = 3;
+        }
+        else if(this.direction > 1) {
+            if(this.direction == 2) this.direction = 0;
+            if(this.direction == 3) this.direction = 1;
+        }
+
+        if(this.moving || this.falling) {
+            if(this.animation.frame < this.animation.max) {
+                this.animation.frame += 1;
+            } else {
+                this.animation.frame = 0;
+                if(this.animation.index < 2) {
+                    this.animation.index += 1;
+                } else {
+                    this.animation.index = 0;
+                }
+            }
+        } else {
+            this.animation.frame = 0;
+            this.animation.index = 0;
+        }
+    };
+
+    this.render = function(context, offset) {
+        this.sprites[this.animation.index + this.direction * 3].render(context, this.position.x + offset.x, this.position.y + offset.y, this.width, this.height);
+    };
+}
+
+function Emitter(position, speed, max, colors) {
+    this.position = position;
+
+    this.running = false;
+    this.limit = 256;
+
+    this.speed = speed;
+    this.max = max;
+    this.colors = colors;
+
+    this.update = function() {
+
+    };
+
+    this.render = function(context, offset) {
+
     };
 }
 
