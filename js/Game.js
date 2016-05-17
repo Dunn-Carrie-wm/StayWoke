@@ -266,7 +266,7 @@ function Player(position, width, height, spritesheet) {
             var enemyBox = new AABB(enemy.position.x, enemy.position.y, enemy.width, enemy.height);
             if(playerBox.getCollision(enemyBox)) {
                 if(this.velocity.y > 2) {
-                    var emitter = new Emitter(enemy.position, .8, 64, ["gray", "lightgray", "white"]);
+                    var emitter = new Emitter(enemy.position.add(new Vector(enemy.width / 2, enemy.height / 1.2)), .8, 64, ["gray", "lightgray", "white"]);
                     emitter.emit(1000);
                     emitters.push(emitter);
 
