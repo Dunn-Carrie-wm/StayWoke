@@ -224,6 +224,11 @@ function Player(position, width, height, spritesheet) {
             this.die();
         }
 
+        if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 9) {
+            complete = true;
+            this.die();
+        }
+
         //WORLD LIMIT DEATH CODE
         if(y > world.getHeight()) {
             this.die();
