@@ -34,7 +34,7 @@ function init() {
     //TEST EMITTER CODE, USE IN CONSOLE: emitters.push(new Emitter(player.position, 2, 64, ["red", "blue", "white"])); emitters[emitters.length - 1].running = true;
     
     var playersheet = new SpriteSheet("res/player.png");
-    player = new Player(new Vector(430*32, 2*32), 32, 32, playersheet);
+    player = new Player(new Vector(32, 50*32), 32, 32, playersheet);
     //should be (32, 50*32), 32, 32,
     //(35*32, 25*32), 32, 32,
     //(430*32, 2*32), 32, 32,
@@ -257,6 +257,7 @@ function Player(position, width, height, spritesheet) {
 
         if(x >= 0 && x < world.getWidth() - 1 && y >= 0 && y < world.getHeight() - 1 && world.map[y][x] == 9) {
             complete = true;
+            bonus += 100;
             this.die();
         }
 
