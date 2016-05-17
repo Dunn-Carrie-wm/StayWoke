@@ -51,7 +51,7 @@ function getToken() {
     <script type="text/javascript" src="..js/engine/Vector.js"></script>
 </head>
 <body onload="main()">
-<nav class="navbar navbar-inverse">?
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -64,9 +64,9 @@ function getToken() {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="../index.php">Home</a></li>
-                <li class="active"><a href="">How to play</a></li>
+                <li class="active"><a>How to play</a></li>
                 <li><a href="../highscores/">High scores</a></li>
-                <li><a href="../shop/">Store</a></li>
+                <li><a href="shop/">Store</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="../register/">Register</a></li>
@@ -76,7 +76,7 @@ function getToken() {
         </div>
     </div>
 </nav>
-<div style="margin-right: auto; margin-left: auto">
+<div style="margin-right: auto; margin-left: auto; -webkit-animation: fadein 0.8s;">
     <h1 style="text-align: center; font-family: 'OCR A Std'">
         Controls
     </h1>
