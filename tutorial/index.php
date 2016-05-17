@@ -66,7 +66,7 @@ function getToken() {
                 <li><a href="../index.php">Home</a></li>
                 <li class="active"><a>How to play</a></li>
                 <li><a href="../highscores/">High scores</a></li>
-                <li><a href="shop/">Store</a></li>
+                <li><a href="../shop/">Shop</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="../register/">Register</a></li>
@@ -82,19 +82,19 @@ function getToken() {
     </h1>
     <div style="margin-left: 30px; margin-right: auto;">
     <h3 style="font-size: 50px; text-align: center" class="glyphicon glyphicon-arrow-left">
-        <p style="font-size: 15px; font-family: 'OCR A Std'; background-color: lightblue">
+        <p style="font-size: 15px; font-family: 'OCR A Std'; background-color: lightsteelblue">
         Use the "A" key to move left.
         </p>
     </h3>
 
     <h3 style="font-size: 50px; text-align: center; margin-left: 200px" class="glyphicon glyphicon-arrow-right">
-        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightblue">
+        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightsteelblueblue">
             Use the "D" key to move right.
         </p>
     </h3>
 
     <h3 style="font-size: 50px; text-align: center; margin-left: 150px;" class="glyphicon glyphicon-arrow-up">
-        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightblue">
+        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightsteelblue">
             Use the "space bar" key to jump.
         </p>
     </h3>
