@@ -26,7 +26,7 @@
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="../tutorial/">How to play</a></li>
                 <li><a href="../highscores">High scores</a></li>
-                <li class="active"><a href="../shop">Store</a></li>
+                <li class="active"><a href="../shop">Shop</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="../register">Register</a></li>
