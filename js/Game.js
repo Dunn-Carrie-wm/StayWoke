@@ -392,7 +392,7 @@ function Enemy(position, width, height, spritesheet) {
     this.height = height;
 
     this.velocity = new Vector(0, 0);
-    this.speed = 2;
+    this.speed = 3;
 
     this.moving = false;
     this.falling = false;
@@ -454,12 +454,12 @@ function Enemy(position, width, height, spritesheet) {
 
         var initial = new Vector(this.velocity.x, this.velocity.y);
 
-        if(player.position.x < this.position.x && distance < 8 * 32) {
+        if(player.position.x < this.position.x && distance < 16 * 32) {
             this.velocity.x -= this.speed;
             this.moving = true;
             this.direction = 1;
         }
-        if(player.position.x > this.position.x && distance < 8 * 32) {
+        if(player.position.x > this.position.x && distance < 16 * 32) {
             this.velocity.x += this.speed;
             this.moving = true;
             this.direction = 0;
