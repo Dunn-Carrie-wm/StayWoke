@@ -34,7 +34,7 @@ function init() {
     //TEST EMITTER CODE, USE IN CONSOLE: emitters.push(new Emitter(player.position, 2, 64, ["red", "blue", "white"])); emitters[emitters.length - 1].running = true;
     
     var playersheet = new SpriteSheet("res/player.png");
-    player = new Player(new Vector(430*32, 2*32), 32, 32, playersheet);
+    player = new Player(new Vector(32, 50*32), 32, 32, playersheet);
     //should be (32, 50*32), 32, 32,
     //(35*32, 25*32), 32, 32,
     //(430*32, 2*32), 32, 32,
@@ -336,24 +336,12 @@ function Player(position, width, height, spritesheet) {
         }
 
         if(engine.key("LEFT")) {
-            this.velocity.x -= 12;
+            this.velocity.x -= this.speed;
             this.moving = true;
             this.direction = 1;
         }
         if(engine.key("RIGHT")) {
-            this.velocity.x += 12;
-            this.moving = true;
-            this.direction = 0;
-        }
-
-        if(engine.key("DOWN")) {
-            this.velocity.y += 8;
-            this.moving = true;
-            this.direction = 0;
-        }
-
-        if(engine.key("UP")) {
-            this.velocity.y -= 23;
+            this.velocity.x += this.speed;
             this.moving = true;
             this.direction = 0;
         }
