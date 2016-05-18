@@ -88,7 +88,7 @@ function getToken() {
     </h3>
 
     <h3 style="font-size: 50px; text-align: center; margin-left: 200px" class="glyphicon glyphicon-arrow-right">
-        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightsteelblueblue">
+        <p style="font-family: 'OCR A Std'; font-size: 15px; background-color: lightsteelblue">
             Use the "D" key to move right.
         </p>
     </h3>
